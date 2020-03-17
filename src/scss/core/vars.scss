@@ -1,0 +1,129 @@
+/* ---COLORS--- */
+
+// Naturel
+$N0: #ffffff;
+$N10: #FAFBFC;
+$N20: #F4F5F7;
+$N30: #EBECF0;
+$N40: #DFE1E5;
+$N50: #C1C7D0;
+$N60: #B3BAC5;
+$N70: #A5ADBA;
+$N80: #97A0AF;
+$N90: #8993A4;
+$N100: #7A869A;
+$N200: #6B778C;
+$N300: #5E6C84;
+$N400: #505F79;
+$N500: #42526E;
+$N600: #344563;
+$N700: #253858;
+$N800: #172B4D;
+$N900: #091E42;
+$N00: #000000;
+
+// Blue
+$B50: #DEEBFF;
+$B75: #B3D4FF;
+$B100: #4C9AFF;
+$B200: #2684FF;
+$B300: #0065FF;
+$B400: #0052CC;
+$B500: #0747A6;
+
+// Teal
+$T50: #E6FCFF;
+$T75: #B3F5FF;
+$T100: #79E2F2;
+$T200: #00C7E5;
+$T300: #00B8D9;
+$T400: #00A3BF;
+$T500: #008DA6;
+
+// Green
+$G50: #E3FCEF;
+$G75: #ACF5D2;
+$G100: #79F2C0;
+$G200: #57D9A3;
+$G300: #36B37E;
+$G400: #00875A;
+$G500: #006644;
+
+// Yellow
+$Y50: #FFFAE5;
+$Y75: #FFF0B2;
+$Y100: #FFE380;
+$Y200: #FFC400;
+$Y300: #FFAB00;
+$Y400: #FF991F;
+$Y500: #FF8B00;
+
+// Orange
+$O1: #ff7b00;
+
+// Pink
+$P1: #fc2390;
+
+// Red
+$R50: #FFEBE5;
+$R75: #FFBDAD;
+$R100: #FF8F73;
+$R200: #FF7452;
+$R300: #FF5630;
+$R400: #DE350B;
+$R500: #BF2600;
+
+// Purple
+$P50: #EAE6FF;
+$P75: #C0B6F2;
+$P100: #998DD9;
+$P200: #8777D9;
+$P300: #6554C0;
+$P400: #5243AA;
+$P500: #403294;
+
+// Cyan
+$C50: #E6E9FF;
+$C75: #B6BDF2;
+$C100: #8D96D9;
+$C200: #7782D9;
+$C300: #5464C0;
+$C400: #4356AA;
+$C500: #324A94;
+$C600: #324B94;
+
+$SH1: 0px 1px 4px -1px rgba(black, 0.11);
+
+/* ---FONT SIZE--- */
+@function calcRem($size) {
+  $remSize: $size / 16px;
+  @return #{$remSize}rem;
+}
+
+$H900: calcRem(32px);
+$H800: calcRem(24px);
+$H700: calcRem(22px);
+$H600: calcRem(20px);
+$H500: calcRem(16px);
+$H400: calcRem(14px);
+$H300: calcRem(13px);
+$H200: calcRem(12px);
+$H100: calcRem(11px);
+
+/* Screens */
+$screen-iphone-5: 320px;
+$screen-iphone-6: 375px;
+$screen-iphone-plus: 414px;
+$screen-tablet-small: 600px;
+$screen-tablet: 768px;
+$screen-tablet-large: 860px;
+$screen-netbook: 960px;
+$screen-desktop: 1024px;
+$screen-desktop-large: 1280px;
+$screen-hd: 1366px;
+$screen-fullhd: 1440px;
+$screen-retina: 1660px;
+
+// FONTS
+$base-font: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+  'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;

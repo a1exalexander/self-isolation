@@ -1,0 +1,134 @@
+@mixin flex-row($justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-col($justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex(
+  $justify-content: flex-start,
+  $align-items: stretch,
+  $direction: row,
+  $wrap: nowrap
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-wrap: $wrap;
+}
+
+@mixin text($size, $weight: 400, $color: white) {
+  font: {
+    size: $size;
+    weight: $weight;
+  }
+  color: $color;
+  @content;
+}
+
+@mixin size($size, $round: false) {
+  width: $size;
+  height: $size;
+  flex-shrink: 0;
+  @if $round {
+    border-radius: 50%;
+  }
+  @content;
+}
+
+@mixin svg($size: 16px, $color: black) {
+  width: $size;
+  height: $size;
+  fill: $color;
+  flex-shrink: 0;
+  transition-property: fill, opacity, stroke, filter;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  @content;
+}
+
+@mixin position($top: 0, $right: 0, $bottom: 0, $left: 0) {
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin transition($types...) {
+  transition-property: $types;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  @content;
+}
+
+$z-index: (
+  immortal: 100,
+  superpopup: 20,
+  popup: 15,
+  drawer: 12,
+  navigation: 10,
+  popover: 5,
+  dropdown: 2,
+  wrapper: 1,
+  default: 0,
+  under: -1
+);
+
+@mixin padding-hack($padding: 50%, $size: contain, $dev: false) {
+  position: relative;
+  height: 0;
+  padding-bottom: $padding;
+  @if $dev {
+    background-color: red;
+  }
+  img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: $size;
+    @if $dev {
+      object-fit: contain;
+    }
+  }
+}
+
+@function z-index($key) {
+  @return map-get($z-index, $key);
+}
+
+@mixin z-index($key: default) {
+  z-index: z-index($key);
+}
+
+/* Screens */
+$screen-iphone-5: 320px;
+$screen-iphone-6: 375px;
+$screen-iphone-plus: 414px;
+$screen-tablet-small: 600px;
+$screen-tablet: 768px;
+$screen-tablet-large: 860px;
+$screen-netbook: 960px;
+$screen-desktop: 1024px;
+$screen-desktop-large: 1280px;
+$screen-hd: 1366px;
+$screen-fullhd: 1440px;
+$screen-retina: 1660px;
+
+@mixin media($screen: $screen-desktop) {
+  @media screen and (min-width: $screen) {
+    @content;
+  }
+}
