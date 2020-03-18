@@ -146,13 +146,13 @@ $loading: (
   box-shadow: $SH1;
   @include transition(all);
   &__text {
-    @include text($H400, 500, $N0);
+    @include text($H500, 600, $N0);
     @include transition(all);
   }
   &__icon {
     text-transform: none;
     font-style: normal;
-    @include text($H400, 500, $N0);
+    @include text($H500, 600, $N0);
     @include transition(all);
     margin-right: 6px;
     line-height: 1;

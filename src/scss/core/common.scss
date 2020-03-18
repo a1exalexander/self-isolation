@@ -10,6 +10,24 @@
   -webkit-overflow-scrolling: touch;
   touch-action: manipulation;
   font-family: $base-font !important;
+  scrollbar-color: $N900 transparent;
+  scrollbar-width: thin;
+  ::-webkit-scrollbar {
+    width: 2px;
+    border-radius: 1px;
+    min-width: 2px;
+    background: $N0;
+  }
+  ::-webkit-scrollbar-thumb {
+    width: 2px;
+    border-radius: 1px;
+    min-width: 2px;
+    background: $N900;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    background-clip: content-box;
+  }
 }
 
 html, body {

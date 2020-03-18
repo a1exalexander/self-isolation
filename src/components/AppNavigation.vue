@@ -2,7 +2,7 @@
   <nav class="navigation">
     <div class="navigation__box" :style="{ height: `${heightDefault}px` }">
       <h1 class="navigation__title">
-        <img class="navigation__icon" src="@/assets/svg/isolate.svg" alt="" /> Что делать...
+        <img class="navigation__icon" src="@/assets/svg/isolate.svg" alt="" /> Что делать?
       </h1>
       <button
         class="navigation__burger burger"
@@ -14,7 +14,7 @@
         <span class="burger__item"></span>
       </button>
     </div>
-    <transition @before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false">
+    <transition @before-enter="beforeEnter" @enter="enter" @leave="leave" @after-leave='afterLeave' :css="false">
       <div class="navigation__menu" v-if="menu">
         <ul class="navigation__list">
           <router-link tag="li" exact class="navigation__link" :to="{ name: 'Home' }"
@@ -30,10 +30,12 @@
             ></router-link
           >
         </ul>
-        <app-button>Предложить занятие</app-button>
+        <div class="navigation__button-wrapper">
+          <app-button>Предложить занятие</app-button>
+        </div>
       </div>
     </transition>
-    <div class="navigation__line"></div>
+    <app-line class="navigation__line" />
   </nav>
 </template>
 
@@ -58,13 +60,15 @@ export default {
   },
   methods: {
     beforeEnter (el) {
-      el.style.maxHeight = 0
+      el.style.height = 0
+    },
+    afterLeave (el) {
+      el.style.height = 0
     },
     enter (el, done) {
       anime({
         targets: el,
-        maxHeight: [0, `${this.heightActive}px`],
-        delay: (el, i) => i * 100,
+        height: this.heightActive,
         duration: 200,
         easing: 'easeInOutSine',
         complete: done
@@ -73,8 +77,7 @@ export default {
     leave (el, done) {
       anime({
         targets: el,
-        maxHeight: 0,
-        delay: (el, i) => i * 100,
+        height: 0,
         duration: 200,
         easing: 'easeInOutSine',
         complete: done
@@ -85,46 +88,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@-webkit-keyframes AnimationName {
-  0% {
-    background-position: 0% 81%;
-  }
-  50% {
-    background-position: 100% 20%;
-  }
-  100% {
-    background-position: 0% 81%;
-  }
-}
-@-moz-keyframes AnimationName {
-  0% {
-    background-position: 0% 81%;
-  }
-  50% {
-    background-position: 100% 20%;
-  }
-  100% {
-    background-position: 0% 81%;
-  }
-}
-@keyframes AnimationName {
-  0% {
-    background-position: 0% 81%;
-  }
-  50% {
-    background-position: 100% 20%;
-  }
-  100% {
-    background-position: 0% 81%;
-  }
-}
-%animate-gradient {
-  background: linear-gradient(90deg, $Y200, $G200, $B200, $R200, $Y200, $G200, $B200, $R200);
-  background-size: 400% 400%;
-  -webkit-animation: AnimationName 20s ease infinite;
-  -moz-animation: AnimationName 20s ease infinite;
-  animation: AnimationName 20s ease infinite;
-}
 $style: navigation;
 .#{$style} {
   position: fixed;
@@ -152,13 +115,13 @@ $style: navigation;
     position: relative;
     z-index: 1;
     background-color: $N700;
-    padding: 24px;
     overflow: hidden;
-    will-change: max-height;
+    will-change: height;
   }
   &__list {
     border-radius: 4px;
     margin-bottom: 24px;
+    padding: 24px 24px 0;
   }
   &__link {
     @include flex(flex-start, center);
@@ -179,11 +142,11 @@ $style: navigation;
   &__link-text {
     @include text($H600, 600);
   }
+  &__button-wrapper {
+    padding: 0 24px 24px;
+  }
   &__line {
     display: block;
-    height: 4px;
-    @extend %animate-gradient;
-    @include transition(all);
   }
 }
 $style: burger;
