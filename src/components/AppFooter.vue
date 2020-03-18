@@ -1,25 +1,41 @@
 <template>
   <footer class="footer">
-    <app-button class="footer__button">Предложить занятия</app-button>
+    <span class="footer__text">© 2020 Oleksandr Ratushnyi</span>
+    <span ref="icon" class="footer__icon">🚀</span>
   </footer>
 </template>
 
 <script>
+import anime from 'animejs'
+
 export default {
-  name: 'AppFooter'
+  name: 'AppFooter',
+  mounted () {
+    anime({
+      targets: this.$refs.icon,
+      translateY: [-4, 4],
+      duration: 1000,
+      direction: 'alternate',
+      loop: true,
+      easing: 'easeInOutSine'
+    })
+  }
 }
 </script>
 
 <style lang="scss">
-  .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    width: 100%;
-    background: linear-gradient(0deg, $N900, $N900 20%,rgba(0, 0, 0, 0));
-    @include flex(flex-end, stretch, column);
-    padding: 0 24px 24px;
+.footer {
+  width: 100%;
+  background-color: $N900;
+  @include flex(flex-start, center);
+  padding: 12px 24px;
+  &__text {
+    @include text($H200, 300);
+    margin-right: 6px;
   }
+  &__icon {
+    transform: translateY(-4);
+    transform: translateX(0);
+  }
+}
 </style>

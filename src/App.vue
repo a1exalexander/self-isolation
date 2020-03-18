@@ -1,7 +1,12 @@
 <template>
-  <div id="app" class="app" :style='{ paddingTop: getPadding }'>
-    <app-navigation :height-default='heightDefault' :height-active='heightActive' :menu='menu' @toggle-menu='toggleMenu' />
-    <router-view class="app__view"/>
+  <div id="app" class="app" :style="{ paddingTop: getPadding }">
+    <app-navigation
+      :height-default="heightDefault"
+      :height-active="heightActive"
+      :menu="menu"
+      @toggle-menu="toggleMenu"
+    />
+    <router-view class="app__view" />
     <app-footer />
   </div>
 </template>
@@ -36,7 +41,10 @@ export default {
   },
   computed: {
     getPadding () {
-      return this.menu ? `${this.heightDefault + this.heightActive + 4}px` : `${this.heightDefault + 4}px`
+      const DEFAULT_HEIGHT = this.heightDefault + 4
+      return this.menu
+        ? `${DEFAULT_HEIGHT + this.heightActive}px`
+        : `${DEFAULT_HEIGHT}px`
     }
   }
 }
@@ -44,10 +52,14 @@ export default {
 
 <style lang="scss">
 .app {
- &__view {
-   background-color: $N800;
-   min-height: 100vh;
-   @include transition(all);
- }
+  min-height: 100vh;
+  @include flex-col;
+  @include transition(all);
+  transition-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  &__view {
+    flex: 1;
+    background-color: $N800;
+    @include transition(all);
+  }
 }
 </style>
