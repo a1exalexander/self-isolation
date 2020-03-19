@@ -5,14 +5,14 @@
       видеоигру или блюдо, которое можно приготовить дома
     </p>
     <form class="post__form" action="/">
-      <app-input class="post__input" label='@ Твое Имя' />
-      <app-input class="post__input" label='🎥 Фильмы, сериалы, передачи...' />
-      <app-input class="post__input" label='📖 Книги, статьи...' />
-      <app-input class="post__input" label='⏳ Как полезно убить время' />
-      <app-input class="post__input" label='🍕 Какое блюдо в самый раз' />
-      <app-input class="post__input" label='🎮 Видеоигры и настольные игры' />
-      <app-input class="post__input" label='🎵 Музыка' />
-      <app-input class="post__input" label='⚡ Дополнительно' />
+      <app-input class="post__input" v-model='name' label='@ Твое Имя' />
+      <app-input class="post__input" v-model='movies' label='🎥 Фильмы, сериалы, передачи...' />
+      <app-input class="post__input" v-model='books' label='📖 Книги, статьи...' />
+      <app-input class="post__input" v-model='todo' label='⏳ Как полезно убить время' />
+      <app-input class="post__input" v-model='food' label='🍕 Какое блюдо в самый раз' />
+      <app-input class="post__input" v-model='games' label='🎮 Видеоигры и настольные игры' />
+      <app-input class="post__input" v-model='music' label='🎵 Музыка' />
+      <app-input class="post__input" v-model='extra' label='⚡ Дополнительно' />
     </form>
     <app-button type='secondary'>Send</app-button>
   </div>
@@ -20,7 +20,21 @@
 
 <script>
 export default {
-  name: 'Post'
+  name: 'Post',
+  data () {
+    return {
+      input: {
+        name: '',
+        movies: '',
+        books: '',
+        todo: '',
+        food: '',
+        games: '',
+        music: '',
+        extra: '',
+      }
+    }
+  }
 }
 </script>
 

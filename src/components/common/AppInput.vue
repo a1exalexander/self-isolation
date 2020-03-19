@@ -47,7 +47,7 @@ export default {
     background-color: $N0;
     outline: none;
     border-radius: 4px;
-    height: 36px;
+    height: 42px;
     @include text(calcRem(16px), 400, black);
     padding: 0 12px;
     &:focus {
