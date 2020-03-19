@@ -20,29 +20,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@-webkit-keyframes AnimationName {
-  0% {
-    background-position: 0% 81%;
-  }
-  50% {
-    background-position: 100% 20%;
-  }
-  100% {
-    background-position: 0% 81%;
-  }
-}
-@-moz-keyframes AnimationName {
-  0% {
-    background-position: 0% 81%;
-  }
-  50% {
-    background-position: 100% 20%;
-  }
-  100% {
-    background-position: 0% 81%;
-  }
-}
-@keyframes AnimationName {
+@keyframes LineColorAnimation {
   0% {
     background-position: 0% 81%;
   }
@@ -56,9 +34,9 @@ export default {
 %animate-gradient {
   background: linear-gradient(90deg, $Y200, $G200, $B200, $R200, $Y200, $G200, $B200, $R200);
   background-size: 400% 400%;
-  -webkit-animation: AnimationName 20s ease infinite;
-  -moz-animation: AnimationName 20s ease infinite;
-  animation: AnimationName 20s ease infinite;
+  -webkit-animation: LineColorAnimation 20s ease infinite;
+  -moz-animation: LineColorAnimation 20s ease infinite;
+  animation: LineColorAnimation 20s ease infinite;
 }
 .line {
   @extend %animate-gradient;

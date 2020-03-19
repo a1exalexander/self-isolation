@@ -1,12 +1,12 @@
 <template>
   <div class="home">
-    <ul class="home__list">
+    <div class="home__list">
       <card class='home__item' color='#36B37E'/>
       <card class='home__item' color='#FFC400'/>
       <card class='home__item' color='#2684FF'/>
       <card class='home__item' color='#FF7452'/>
       <card class='home__item' color='#8777D9'/>
-    </ul>
+    </div>
   </div>
 </template>
 

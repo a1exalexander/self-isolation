@@ -28,7 +28,7 @@ export default {
   width: 100%;
   background-color: $N900;
   @include flex(flex-start, center);
-  padding: 12px 24px;
+  padding: 22px 24px 48px;
   &__text {
     @include text($H200, 300);
     margin-right: 6px;

@@ -5,6 +5,7 @@
       :height-active="heightActive"
       :menu="menu"
       @toggle-menu="toggleMenu"
+      @hide-menu="hideMenu"
     />
     <router-view class="app__view" />
     <app-footer />
@@ -42,10 +43,20 @@ export default {
   computed: {
     getPadding () {
       const DEFAULT_HEIGHT = this.heightDefault + 4
-      return this.menu
-        ? `${DEFAULT_HEIGHT + this.heightActive}px`
-        : `${DEFAULT_HEIGHT}px`
+      return this.menu ? `${DEFAULT_HEIGHT + this.heightActive}px` : `${DEFAULT_HEIGHT}px`
     }
+  },
+  watch: {
+    $route (route) {
+      const timer = setTimeout(() => {
+        this.menu = false
+        clearTimeout(timer)
+      }, 300)
+    }
+  },
+  beforeRouteLeave (to, from, next) {
+    console.log('sdsad')
+    next()
   }
 }
 </script>

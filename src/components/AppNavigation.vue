@@ -15,7 +15,7 @@
       </button>
     </div>
     <transition @before-enter="beforeEnter" @enter="enter" @leave="leave" @after-leave='afterLeave' :css="false">
-      <div class="navigation__menu" v-if="menu">
+      <div class="navigation__menu" v-show="menu">
         <ul class="navigation__list">
           <router-link tag="li" exact class="navigation__link" :to="{ name: 'Home' }"
             ><img class="navigation__link-icon" src="@/assets/svg/chat.svg" alt="" /><span
@@ -31,7 +31,9 @@
           >
         </ul>
         <div class="navigation__button-wrapper">
-          <app-button>Предложить занятие</app-button>
+          <router-link :to='{ name: "Post" }'>
+            <app-button>Предложить занятие</app-button>
+          </router-link>
         </div>
       </div>
     </transition>
@@ -154,6 +156,7 @@ $style: burger;
   height: 18px;
   width: 32px;
   @include flex(space-between, stretch, column);
+  cursor: pointer;
   &__item {
     height: 2px;
     background-color: $N0;
