@@ -1,4 +1,5 @@
 {
+  "name": "self-isolation",
   "env": {
     "VUE_APP_APIKEY": "@next_static_isolation_api_key",
     "VUE_APP_AUTH_DOMAIN": "@next_static_isolation_auth_domain",
