@@ -1,33 +1,33 @@
 <template>
   <div class="post">
-    <p class="post__description">
-      Привет! Поделись со всеми интересным и полезным! Например, посветуй хороший фильм, книгу,
-      видеоигру или блюдо, которое можно приготовить дома
-    </p>
-    <form class="post__form" action="/">
-      <app-input class="post__input" v-model="input.name" label="@ Твое Имя" />
-      <app-input
-        class="post__input"
-        v-model="input.movies"
-        label="🎥 Фильмы, сериалы, передачи..."
-      />
-      <app-input class="post__input" v-model="input.books" label="📖 Книги, статьи..." />
-      <app-input class="post__input" v-model="input.todo" label="⏳ Как полезно убить время" />
-      <app-input class="post__input" v-model="input.food" label="🍕 Какое блюдо в самый раз" />
-      <app-input class="post__input" v-model="input.games" label="🎮 Видеоигры и настольные игры" />
-      <app-input class="post__input" v-model="input.music" label="🎵 Музыка" />
-      <app-input class="post__input" v-model="input.extra" label="⚡ Дополнительно" />
-      <span class="post__label">🎨 Цвет карточки</span>
-      <colorpicker
-        :value="input.color"
-        @input="onChangeColor"
-        class="post__colors"
-        :palette="colors"
-      ></colorpicker>
-      <app-button :disabled="disabled" class="post__button" type="secondary">Send</app-button>
-    </form>
-    <span class="post__caption">Предпросмотр</span>
-    <card :post="input" />
+    <div class="post__container">
+      <p class="post__description">
+        Привет! Поделись со всеми интересным и полезным! Например, посветуй хороший фильм, книгу,
+        видеоигру или блюдо, которое можно приготовить дома
+      </p>
+      <form class="post__form" @submit.prevent="publish">
+        <app-input class="post__input" v-model="input.name" type="name" />
+        <app-input class="post__input" v-model="input.movies" type="movies" />
+        <app-input class="post__input" v-model="input.books" type="books" />
+        <app-input class="post__input" v-model="input.todo" type="todo" />
+        <app-input class="post__input" v-model="input.food" type="food" />
+        <app-input class="post__input" v-model="input.games" type="games" />
+        <app-input class="post__input" v-model="input.music" type="music" />
+        <app-input class="post__input" v-model="input.extra" type="extra" />
+        <span class="post__label">🎨 Цвет карточки</span>
+        <colorpicker
+          :value="input.color"
+          @input="onChangeColor"
+          class="post__colors"
+          :palette="colors"
+        ></colorpicker>
+        <app-button :loading="loading" :disabled="disabled" class="post__button" type="secondary"
+          >Опубликовать</app-button
+        >
+      </form>
+      <span class="post__caption">Предпросмотр</span>
+      <card readonly :post="input" />
+    </div>
   </div>
 </template>
 
@@ -35,6 +35,23 @@
 import { Compact } from 'vue-color';
 import { colors } from '@/utils';
 import Card from '../components/common/Card';
+import { logger, db, Timestamp } from '../services';
+import { dateNow } from '../utils';
+
+const init = {
+  color: colors[0],
+  name: '',
+  movies: '',
+  books: '',
+  todo: '',
+  food: '',
+  games: '',
+  music: '',
+  extra: '',
+  likes: 0,
+  dislikes: 0,
+  date: { seconds: Date.now() / 1000 }
+}
 
 export default {
   name: 'Post',
@@ -44,17 +61,8 @@ export default {
   },
   data() {
     return {
-      input: {
-        color: colors[0],
-        name: '',
-        movies: '',
-        books: '',
-        todo: '',
-        food: '',
-        games: '',
-        music: '',
-        extra: ''
-      },
+      loading: false,
+      input: {...init},
       colors
     };
   },
@@ -78,6 +86,22 @@ export default {
   methods: {
     onChangeColor(color) {
       this.input.color = color.hex;
+    },
+    clean() {
+      this.input = {...init}
+    },
+    async publish() {
+      this.loading = true;
+      try {
+        const data = { ...this.input, date: Timestamp.fromDate(new Date()) }
+        const res = await db.collection('posts').add(data)
+        logger.info(res);
+        this.clean()
+      } catch (err) {
+        logger.error(err);
+      } finally {
+        this.loading = false;
+      }
     }
   }
 };
@@ -85,21 +109,34 @@ export default {
 
 <style lang="scss">
 .post {
-  padding: 24px;
+  &__container {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    @extend %px;
+    @extend %container;
+  }
   &__description {
     @include text($H500);
     line-height: 1.5;
     margin-bottom: 24px;
+    @include media($screen-desktop) {
+      text-align: center;
+      font-size: $H600;
+    }
   }
   &__form {
     margin-bottom: 48px;
   }
   &__label {
     @extend %label;
+    margin-bottom: 8px;
   }
   &__input {
     &:not(:last-child) {
       margin-bottom: 12px;
+      @include media($screen-desktop) {
+        margin-bottom: 18px;
+      }
     }
   }
   &__colors.vc-compact {
@@ -111,11 +148,14 @@ export default {
   }
   &__button {
     margin-top: 32px;
+    @include media {
+      margin: 32px auto 0;
+    }
   }
   &__caption {
     @include text($H400, 600);
     display: block;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 }
 </style>

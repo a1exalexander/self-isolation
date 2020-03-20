@@ -1,0 +1,24 @@
+{
+  "env": {
+    "VUE_APP_APIKEY": "@next_static_isolation_api_key",
+    "VUE_APP_AUTH_DOMAIN": "@next_static_isolation_auth_domain",
+    "VUE_APP_DATABASE_URL": "@next_static_isolation_database_url",
+    "VUE_APP_PROJECT_ID": "@next_static_isolation_project_id",
+    "VUE_APP_STORAGE_BUCKET": "@next_static_isolation_storage_bucket",
+    "VUE_APP_MESSAGING_SENDER_ID": "@next_static_isolation_messaging_sender_id",
+    "VUE_APP_APP_ID": "@next_static_isolation_app_id",
+    "VUE_APP_MEASUREMENT_ID": "@next_static_isolation_measurement_id"
+  },
+  "build": {
+    "env": {
+      "VUE_APP_APIKEY": "@next_static_isolation_api_key",
+      "VUE_APP_AUTH_DOMAIN": "@next_static_isolation_auth_domain",
+      "VUE_APP_DATABASE_URL": "@next_static_isolation_database_url",
+      "VUE_APP_PROJECT_ID": "@next_static_isolation_project_id",
+      "VUE_APP_STORAGE_BUCKET": "@next_static_isolation_storage_bucket",
+      "VUE_APP_MESSAGING_SENDER_ID": "@next_static_isolation_messaging_sender_id",
+      "VUE_APP_APP_ID": "@next_static_isolation_app_id",
+      "VUE_APP_MEASUREMENT_ID": "@next_static_isolation_measurement_id"
+    }
+  }
+}

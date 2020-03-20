@@ -67,6 +67,9 @@ export default {
   @include flex-col;
   @include transition(all);
   transition-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  @include media {
+    padding-top: 0 !important;
+  }
   &__view {
     flex: 1;
     background-color: $N800;

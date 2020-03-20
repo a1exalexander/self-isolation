@@ -138,7 +138,7 @@ $loading: (
 .#{$style} {
   cursor: pointer;
   border-radius: 2px;
-  padding: 0px 16px;
+  padding: 0px 32px;
   min-height: 42px;
   position: relative;
   border: 0px solid transparent;

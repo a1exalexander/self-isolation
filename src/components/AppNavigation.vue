@@ -2,8 +2,9 @@
   <nav class="navigation">
     <div class="navigation__box" :style="{ height: `${heightDefault}px` }">
       <h1 class="navigation__title">
-        <img class="navigation__icon" src="@/assets/svg/isolate.svg" alt="" /> Что делать?
+        <img class="navigation__icon" src="@/assets/svg/isolate.svg" alt="" /> Self Isolation
       </h1>
+      <navigation-menu class="navigation__desktop-menu" />
       <button
         class="navigation__burger burger"
         :class="{ _active: menu }"
@@ -14,38 +15,28 @@
         <span class="burger__item"></span>
       </button>
     </div>
-    <transition @before-enter="beforeEnter" @enter="enter" @leave="leave" @after-leave='afterLeave' :css="false">
-      <div class="navigation__menu" v-show="menu">
-        <ul class="navigation__list">
-          <router-link tag="li" exact class="navigation__link" :to="{ name: 'Home' }"
-            ><img class="navigation__link-icon" src="@/assets/svg/chat.svg" alt="" /><span
-              class="navigation__link-text"
-              >Главная</span
-            ></router-link
-          >
-          <router-link tag="li" exact class="navigation__link" :to="{ name: 'About' }"
-            ><img class="navigation__link-icon" src="@/assets/svg/book.svg" alt="" /><span
-              class="navigation__link-text"
-              >Описание</span
-            ></router-link
-          >
-        </ul>
-        <div class="navigation__button-wrapper">
-          <router-link :to='{ name: "Post" }'>
-            <app-button>Предложить занятие</app-button>
-          </router-link>
-        </div>
-      </div>
+    <transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @leave="leave"
+      @after-leave="afterLeave"
+      :css="false"
+    >
+      <navigation-menu class="navigation__menu" v-show="menu" />
     </transition>
     <app-line class="navigation__line" />
   </nav>
 </template>
 
 <script>
-import anime from 'animejs'
+import anime from 'animejs';
+import NavigationMenu from './navigation/NavigationMenu';
 
 export default {
   name: 'AppNavigation',
+  components: {
+    NavigationMenu
+  },
   props: {
     heightDefault: {
       type: Number,
@@ -61,32 +52,32 @@ export default {
     }
   },
   methods: {
-    beforeEnter (el) {
-      el.style.height = 0
+    beforeEnter(el) {
+      el.style.height = 0;
     },
-    afterLeave (el) {
-      el.style.height = 0
+    afterLeave(el) {
+      el.style.height = 0;
     },
-    enter (el, done) {
+    enter(el, done) {
       anime({
         targets: el,
         height: this.heightActive,
         duration: 200,
         easing: 'easeInOutSine',
         complete: done
-      })
+      });
     },
-    leave (el, done) {
+    leave(el, done) {
       anime({
         targets: el,
         height: 0,
         duration: 200,
         easing: 'easeInOutSine',
         complete: done
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -98,6 +89,9 @@ $style: navigation;
   right: 0;
   z-index: z-index(navigation);
   background-color: transparent;
+  @include media {
+    position: sticky;
+  }
   &__title {
     @include text($H800, 600);
     @include flex(flex-start, flex-end);
@@ -105,20 +99,29 @@ $style: navigation;
   &__box {
     position: relative;
     z-index: 2;
-    padding: 0 24px;
     @include flex(space-between, center);
     background-color: $N900;
+    @extend %px;
+    @include media {
+      padding-top: 42px;
+      padding-bottom: 42px;
+    }
   }
   &__icon {
     height: 36px;
     margin-right: 8px;
   }
   &__menu {
-    position: relative;
-    z-index: 1;
-    background-color: $N700;
-    overflow: hidden;
     will-change: height;
+    @include media {
+      display: none;
+    }
+  }
+  &__desktop-menu {
+    display: none;
+    @include media {
+      display: flex;
+    }
   }
   &__list {
     border-radius: 4px;
@@ -130,6 +133,7 @@ $style: navigation;
     padding: 12px;
     border-radius: 4px;
     @include transition(all);
+    cursor: pointer;
     &.router-link-active {
       background-color: $N800;
     }
@@ -149,6 +153,11 @@ $style: navigation;
   }
   &__line {
     display: block;
+  }
+  &__burger {
+    @include media {
+      display: none !important;
+    }
   }
 }
 $style: burger;

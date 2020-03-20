@@ -1,0 +1,79 @@
+{
+  "posts": [
+    {
+      "id": "772991726",
+      "name": "Joe Patrick",
+      "color": "#6B778C",
+      "movies": "Один дома",
+      "books": "Унесенные ветром",
+      "todo": "Скупить грэчку",
+      "food": "Пельмени",
+      "games": "Red dead Redemption 2",
+      "music": "",
+      "extra": "",
+      "likes": 27,
+      "dislikes": 10,
+      "date": "18.03.2020"
+    },
+    {
+      "id": "1843462093",
+      "name": "Seth Goodwin",
+      "color": "#2684FF",
+      "movies": "Власетлин колец",
+      "books": "Хоббит",
+      "todo": "",
+      "food": "",
+      "games": "",
+      "music": "Linkin Park",
+      "extra": "",
+      "likes": 117,
+      "dislikes": 10,
+      "date": "19.03.2020"
+    },
+    {
+      "id": "922922091",
+      "name": "Blake Rowe",
+      "color": "#FF7452",
+      "movies": "Крепкий орешек",
+      "books": "",
+      "todo": "",
+      "food": "",
+      "games": "",
+      "music": "",
+      "extra": "Открывать и закрывать занавески",
+      "likes": 177,
+      "dislikes": 3,
+      "date": "19.03.2020"
+    },
+    {
+      "id": "56637381",
+      "name": "Helena Warren",
+      "color": "#FF7452",
+      "movies": "Интерстеллар",
+      "books": "",
+      "todo": "",
+      "food": "Килька в тамотном соусе",
+      "games": "",
+      "music": "",
+      "extra": "",
+      "likes": 178,
+      "dislikes": 7,
+      "date": "19.03.2020"
+    },
+    {
+      "id": "273451777",
+      "name": "Tyler Phillips",
+      "color": "#f8b195",
+      "movies": "Звездные войны",
+      "books": "Гарри Поттер",
+      "todo": "",
+      "food": "",
+      "games": "",
+      "music": "Макс Корж - Малолетка",
+      "extra": "",
+      "likes": 107,
+      "dislikes": 5,
+      "date": "19.03.2020"
+    }
+  ]
+}

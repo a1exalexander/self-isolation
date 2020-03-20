@@ -1,6 +1,6 @@
 <template>
   <label class="input"
-    ><span class="input__label" v-if="label">{{ label }}</span
+    ><span class="input__label" v-if="labels[type] || label">{{ labels[type] || label }}</span
     ><input
       :value="value"
       :placeholder="placeholder"
@@ -11,9 +11,17 @@
   /></label>
 </template>
 <script>
+import { labels } from '@/data';
+
 export default {
   name: 'AppInput',
   props: {
+    type: {
+      type: String,
+      validator(value) {
+        return Object.keys(labels).indexOf(value) !== -1
+      }
+    },
     label: {
       type: String,
       default: ''
@@ -29,6 +37,11 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    }
+  },
+  data () {
+    return {
+      labels
     }
   }
 };

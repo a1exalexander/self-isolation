@@ -8,19 +8,20 @@
     <header class="card__header">
       <div class="card__info">
         <h3 class="card__autor">@{{ post.name }}</h3>
-        <span class="card__date">{{getDate}}</span>
+        <span class="card__date">{{ getDate }}</span>
       </div>
-      <div class="card__like-wrapper" @click.stop>
-        <button class="card__like like-btn">
-          <icon-heart class="like-btn__icon" /><span class="like-btn__text">{{
-            post.likes || 0
-          }}</span>
-        </button>
-        <button class="card__like like-btn">
-          <icon-broken-heart class="like-btn__icon like-btn__icon--dislike" /><span
+      <div class="card__like-wrapper" @click.stop v-if="!readonly">
+        <button class="card__like like-btn" @click="onLike">
+          <icon-heart class="like-btn__icon" :class="{ _active: like }" /><span
             class="like-btn__text"
-            >{{ post.dislikes || 0 }}</span
+            >{{ post.likes || 0 }}</span
           >
+        </button>
+        <button class="card__like like-btn" @click="onDislike">
+          <icon-broken-heart
+            class="like-btn__icon like-btn__icon--dislike"
+            :class="{ _active: dislike }"
+          /><span class="like-btn__text">{{ post.dislikes || 0 }}</span>
         </button>
       </div>
     </header>
@@ -60,7 +61,9 @@
 
 <script>
 import { IconHeart, IconBrokenHeart } from '../icons';
-import { dateNow } from '../../utils';
+import { dateNow, formatDate } from '../../utils';
+import { likeStorage, db, eventBus, logger } from '../../services';
+import { UPDATE_POSTS } from '../../constants';
 
 export default {
   name: 'Card',
@@ -69,6 +72,10 @@ export default {
     IconBrokenHeart
   },
   props: {
+    readonly: {
+      type: Boolean,
+      default: false
+    },
     post: {
       type: Object,
       default() {
@@ -91,12 +98,53 @@ export default {
   },
   data() {
     return {
-      open: false
+      open: false,
+      like: likeStorage.hasLike(this.post?.id),
+      dislike: likeStorage.hasDislike(this.post?.id)
     };
+  },
+  methods: {
+    increment(num) {
+      return Number.isNaN(Number(num)) ? 1 : Number(num) + 1
+    },
+    onLike() {
+      const {
+        like,
+        post: { id, likes }
+      } = this;
+      if (like) {
+        return;
+      }
+      db.collection('posts')
+        .doc(id)
+        .update({ likes: this.increment(likes) })
+        .then(() => {
+          logger.info('Liked')
+          this.like = true;
+          likeStorage.saveLike(id);
+        });
+    },
+    async onDislike() {
+      const {
+        dislike,
+        post: { id, dislikes }
+      } = this;
+      if (dislike) {
+        return;
+      }
+      db.collection('posts')
+        .doc(id)
+        .update({ dislikes: this.increment(dislikes) })
+        .then(() => {
+          logger.info('Disliked')
+          this.dislike = true;
+          likeStorage.saveDislike(id);
+        });
+    }
   },
   computed: {
     getDate() {
-      return this.date || dateNow();
+      return formatDate(this.post?.date?.seconds)
     }
   }
 };
@@ -111,42 +159,46 @@ $style: card;
     padding: 8px 12px;
     @include flex(space-between, center);
     border-radius: 4px 4px 0 0;
+    @include media($screen-tablet) {
+      padding: 12px 16px;
+    }
   }
   &__autor {
     display: block;
     width: 100%;
-    @include text($H500, 600, $N00);
-    margin-right: 12px;
+    @include text($H500, 700, $N00);
+    margin-bottom: 4px;
   }
   &__date {
     @include text($H300, 400, $N00);
-    display: none;
-    @include media($screen-iphone-plus) {
-      display: block;
-    }
   }
   &__list {
-    padding: 12px;
+    padding: 16px;
     border-radius: 0 0 4px 4px;
   }
   &__item {
     @include flex;
-    @include text($H400, 600, black);
     &:not(:last-child) {
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
   }
   &__text {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    @include text($H500, 600, black);
+    @include media($screen-tablet) {
+      text-overflow: clip;
+      white-space: normal;
+      overflow: visible;
+    }
   }
   &__label {
     display: block;
     flex: 0 0 30px;
   }
   &__info {
-    @include flex(flex-start, baseline);
+    @include flex(flex-start, flex-start, column);
   }
   &__like-wrapper {
     @include flex(center, center);
@@ -167,7 +219,7 @@ $style: card;
 
 $style: like-btn;
 .#{$style} {
-  @include flex(center, center);
+  @include flex(flex-start, center);
   @include media {
     &:hover {
       .#{$style}__icon {
@@ -187,11 +239,21 @@ $style: like-btn;
     }
   }
   &__icon {
-    @include svg(24px, $N0);
-    margin-right: 4px;
+    @include svg(28px, $N0);
+    margin-right: 6px;
+    &._active {
+      fill: $P1;
+    }
+    &--dislike {
+      &._active {
+        fill: $O1;
+      }
+    }
   }
   &__text {
-    min-width: 18px;
+    min-width: 22px;
+    text-align: left;
+    @include text($H500, 700, black);
   }
 }
 </style>

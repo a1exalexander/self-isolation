@@ -29,9 +29,15 @@ export default {
   background-color: $N900;
   @include flex(flex-start, center);
   padding: 22px 24px 48px;
+  @include media($screen-tablet) {
+    padding-bottom: 24px;
+  }
   &__text {
     @include text($H200, 300);
     margin-right: 6px;
+    @include media($screen-tablet) {
+      @include text($H400, 400);
+    }
   }
   &__icon {
     transform: translateY(-4);
