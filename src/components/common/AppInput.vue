@@ -1,13 +1,13 @@
 <template>
   <label class="input"
-    ><span class="input__label" v-if='label'>{{ label }}</span
+    ><span class="input__label" v-if="label">{{ label }}</span
     ><input
       :value="value"
-      :placeholder='placeholder'
+      :placeholder="placeholder"
       @input="e => $emit('input', e.target.value)"
       class="input__input"
       type="text"
-      readonly
+      :readonly="readonly"
   /></label>
 </template>
 <script>
@@ -31,15 +31,13 @@ export default {
       default: false
     }
   }
-}
+};
 </script>
 <style lang="scss">
 .input {
   display: block;
   &__label {
-    display: block;
-    margin-bottom: 6px;
-    @include text($H300, 600);
+    @extend %label;
   }
   &__input {
     width: 100%;

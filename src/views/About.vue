@@ -36,7 +36,7 @@
   </div>
 </template>
 <script>
-import Card from '@/components/home/Card'
+import Card from '@/components/common/Card'
 
 export default {
   name: 'About',

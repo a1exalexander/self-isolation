@@ -5,25 +5,47 @@
       видеоигру или блюдо, которое можно приготовить дома
     </p>
     <form class="post__form" action="/">
-      <app-input class="post__input" v-model='name' label='@ Твое Имя' />
-      <app-input class="post__input" v-model='movies' label='🎥 Фильмы, сериалы, передачи...' />
-      <app-input class="post__input" v-model='books' label='📖 Книги, статьи...' />
-      <app-input class="post__input" v-model='todo' label='⏳ Как полезно убить время' />
-      <app-input class="post__input" v-model='food' label='🍕 Какое блюдо в самый раз' />
-      <app-input class="post__input" v-model='games' label='🎮 Видеоигры и настольные игры' />
-      <app-input class="post__input" v-model='music' label='🎵 Музыка' />
-      <app-input class="post__input" v-model='extra' label='⚡ Дополнительно' />
+      <app-input class="post__input" v-model="input.name" label="@ Твое Имя" />
+      <app-input
+        class="post__input"
+        v-model="input.movies"
+        label="🎥 Фильмы, сериалы, передачи..."
+      />
+      <app-input class="post__input" v-model="input.books" label="📖 Книги, статьи..." />
+      <app-input class="post__input" v-model="input.todo" label="⏳ Как полезно убить время" />
+      <app-input class="post__input" v-model="input.food" label="🍕 Какое блюдо в самый раз" />
+      <app-input class="post__input" v-model="input.games" label="🎮 Видеоигры и настольные игры" />
+      <app-input class="post__input" v-model="input.music" label="🎵 Музыка" />
+      <app-input class="post__input" v-model="input.extra" label="⚡ Дополнительно" />
+      <span class="post__label">🎨 Цвет карточки</span>
+      <colorpicker
+        :value="input.color"
+        @input="onChangeColor"
+        class="post__colors"
+        :palette="colors"
+      ></colorpicker>
+      <app-button :disabled="disabled" class="post__button" type="secondary">Send</app-button>
     </form>
-    <app-button type='secondary'>Send</app-button>
+    <span class="post__caption">Предпросмотр</span>
+    <card :post="input" />
   </div>
 </template>
 
 <script>
+import { Compact } from 'vue-color';
+import { colors } from '@/utils';
+import Card from '../components/common/Card';
+
 export default {
   name: 'Post',
-  data () {
+  components: {
+    colorpicker: Compact,
+    Card
+  },
+  data() {
     return {
       input: {
+        color: colors[0],
         name: '',
         movies: '',
         books: '',
@@ -31,11 +53,34 @@ export default {
         food: '',
         games: '',
         music: '',
-        extra: '',
-      }
+        extra: ''
+      },
+      colors
+    };
+  },
+  computed: {
+    disabled() {
+      const { input } = this;
+      return !(
+        input.name &&
+        [
+          !!input.movies,
+          !!input.books,
+          !!input.todo,
+          !!input.food,
+          !!input.games,
+          !!input.music,
+          !!input.extra
+        ].includes(true)
+      );
+    }
+  },
+  methods: {
+    onChangeColor(color) {
+      this.input.color = color.hex;
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -47,12 +92,30 @@ export default {
     margin-bottom: 24px;
   }
   &__form {
-    margin-bottom: 24px;
+    margin-bottom: 48px;
+  }
+  &__label {
+    @extend %label;
   }
   &__input {
-    &:not(:last-of-type) {
+    &:not(:last-child) {
       margin-bottom: 12px;
     }
+  }
+  &__colors.vc-compact {
+    width: 100%;
+    margin-bottom: 24px;
+    .vc-compact-color-item {
+      @include size(46px);
+    }
+  }
+  &__button {
+    margin-top: 32px;
+  }
+  &__caption {
+    @include text($H400, 600);
+    display: block;
+    margin-bottom: 24px;
   }
 }
 </style>
