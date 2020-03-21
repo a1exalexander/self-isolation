@@ -9,10 +9,12 @@
     />
     <router-view class="app__view" />
     <app-footer />
+    <BackTopButton />
   </div>
 </template>
 
 <script>
+import BackTopButton from '@/components/common/BackTopButton';
 import AppNavigation from '@/components/AppNavigation'
 import AppFooter from '@/components/AppFooter'
 
@@ -20,7 +22,8 @@ export default {
   name: 'App',
   components: {
     AppNavigation,
-    AppFooter
+    AppFooter,
+    BackTopButton
   },
   data () {
     return {

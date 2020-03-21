@@ -1,12 +1,18 @@
 <template>
+<back-to-top bottom="50px" right="50px">
   <button class="glow-on-hover" @click="() => $emit('click')">
     <img class="glow-on-hover__image" src="@/assets/svg/diagonal-arrow.svg" alt="arrow" />
   </button>
+</back-to-top>
 </template>
 
 <script>
+import BackToTop from 'vue-backtotop';
 export default {
-  name: 'BackTopButton'
+  name: 'BackTopButton',
+  components: {
+    BackToTop,
+  },
 };
 </script>
 
@@ -23,10 +29,10 @@ export default {
   z-index: 0;
   border-radius: 10px;
   &__image {
-    @include size(24px);
+    @include size(28px);
     transform: rotate(-45deg);
     position: relative;
-    bottom: -2px;
+    bottom: -3px;
   }
 }
 
@@ -66,8 +72,10 @@ export default {
   background: transparent;
 }
 
-.glow-on-hover:hover:before {
+@include media {
+  .glow-on-hover:hover:before {
   opacity: 1;
+}
 }
 
 .glow-on-hover:after {

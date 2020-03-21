@@ -1,29 +1,27 @@
 <template>
   <div class="home">
-    <h2 class="home__title">Привет! Подились со всеми интересами и рекомендациями.</h2>
+    <h2 class="home__title">Привет! Поделись со всеми интересами и рекомендациями.</h2>
     <h2 class="home__title home__title--large">Happy Quarantine!</h2>
     <div class="home__list">
       <card class="home__item" v-for="post in getPosts" :post="post" :filter='filter' :key="post.id" />
     </div>
-    <back-to-top bottom="50px" right="50px">
-      <back-top-button />
-    </back-to-top>
   </div>
 </template>
 
 <script>
-import BackToTop from 'vue-backtotop';
 import Card from '@/components/common/Card';
 import { db, eventBus, dbLocal, bus } from '../services';
 import { UPDATE_POSTS, UPDATE_FILTER, UPDATE_SORT } from '../constants';
-import BackTopButton from '@/components/common/BackTopButton';
 
 export default {
   name: 'Home',
   components: {
     Card,
-    BackToTop,
-    BackTopButton
+  },
+  head: {
+    title: {
+      inner: 'Самоизоляция - поделись со всеми интересами и рекомендациями'
+    }
   },
   firestore: {
     posts: db.collection('posts')

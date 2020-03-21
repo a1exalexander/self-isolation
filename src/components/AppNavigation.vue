@@ -2,7 +2,7 @@
   <nav class="navigation">
     <div class="navigation__box" :style="{ height: `${heightDefault}px` }">
       <h1 class="navigation__title">
-        <img class="navigation__icon" src="@/assets/svg/isolate.svg" alt="" /> Self Isolation
+        <img class="navigation__icon" src="@/assets/svg/isolate.svg" alt="" />Счастливой Самоизоляции!
       </h1>
       <navigation-menu class="navigation__desktop-menu" />
       <button
@@ -131,7 +131,7 @@ $style: navigation;
   }
   &__title {
     @include text($H800, 600);
-    @include flex(flex-start, flex-end);
+    @include flex(flex-start, center);
   }
   &__box {
     position: relative;
@@ -145,8 +145,11 @@ $style: navigation;
     }
   }
   &__icon {
-    height: 36px;
+    height: 42px;
     margin-right: 8px;
+    @include media {
+      height: 52px;
+    }
   }
   &__menu {
     will-change: height;
