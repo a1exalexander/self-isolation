@@ -3,40 +3,70 @@
     <h2 class="home__title">Привет! Подились со всеми интересами и рекомендациями.</h2>
     <h2 class="home__title home__title--large">Happy Quarantine!</h2>
     <div class="home__list">
-      <card class="home__item" v-for="post in posts" :post="post" :key="post.id" />
+      <card class="home__item" v-for="post in getPosts" :post="post" :key="post.id" />
     </div>
+    <back-to-top bottom="50px" right="50px">
+      <back-top-button />
+    </back-to-top>
   </div>
 </template>
 
 <script>
+import BackToTop from 'vue-backtotop';
 import Card from '@/components/common/Card';
-import { db, eventBus, dbLocal } from '../services';
-import { UPDATE_POSTS } from '../constants';
+import { db, eventBus, dbLocal, bus } from '../services';
+import { UPDATE_POSTS, UPDATE_FILTER, UPDATE_SORT } from '../constants';
+import BackTopButton from '@/components/common/BackTopButton';
 
 export default {
   name: 'Home',
   components: {
-    Card
+    Card,
+    BackToTop,
+    BackTopButton
   },
   firestore: {
     posts: db.collection('posts')
   },
   data() {
     return {
-      posts: [...dbLocal.getPostsSnapshot()]
+      posts: [...dbLocal.getPostsSnapshot()],
+      filter: 'all',
+      sort: 'date'
     };
   },
-  methods: {},
+  computed: {
+    getPosts() {
+      const shallowCopy = [...this.posts];
+      return shallowCopy
+        .sort((a, b) =>
+          this.sort === 'date' ? b.date.seconds - a.date.seconds : b[this.sort] - a[this.sort]
+        )
+        .filter(item => this.filter === 'all' || item[this.filter]);
+    }
+  },
+  created() {
+    bus.$on(UPDATE_FILTER, value => {
+      this.filter = value;
+    });
+    bus.$on(UPDATE_SORT, value => {
+      this.sort = value;
+    });
+  }
 };
 </script>
 
 <style lang="scss">
 .home {
   padding: 24px;
+  padding-top: 152px;
   @extend %px;
   flex: 1 1;
+  @include media($screen-tablet-small) {
+    padding-top: 102px;
+  }
   @include media {
-    padding-top: 48px;
+    padding-top: 42px;
   }
   &__list {
     flex: 1 1;

@@ -25,17 +25,25 @@
       <navigation-menu class="navigation__menu" v-show="menu" />
     </transition>
     <app-line class="navigation__line" />
+    <div class="navigation__gears">
+      <app-select class='navigation__select' :list='sorts' :value='sort' @change="onSortChange"></app-select>
+      <app-select class='navigation__select' :list='filters' :value='filter' @change="onFilterChange"></app-select>
+    </div>
   </nav>
 </template>
 
 <script>
+import AppSelect from './common/AppSelect';
+import { bus } from '../services';
+import { UPDATE_FILTER, UPDATE_SORT } from '../constants';
 import anime from 'animejs';
 import NavigationMenu from './navigation/NavigationMenu';
 
 export default {
   name: 'AppNavigation',
   components: {
-    NavigationMenu
+    NavigationMenu,
+    AppSelect
   },
   props: {
     heightDefault: {
@@ -51,7 +59,36 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      filters: [
+        {value: 'all', label: 'Показать все'},
+        {value: 'movies', label: '🎥 Фильмы, сериалы, передачи'},
+        {value: 'books', label: '📖 Книги, статьи...'},
+        {value: 'todo', label: '⏳ Как полезно убить время'},
+        {value: 'food', label: '🍕 Еда'},
+        {value: 'games', label: '🎮 Видеоигры и настольные игры'},
+        {value: 'music', label: '🎵 Музыка'},
+        {value: 'extra', label: '⚡ Дополнительно'},
+      ],
+      sorts: [
+        {value: 'date', label: 'Сначала новые'},
+        {value: 'likes', label: 'Сначала популярные'},
+        {value: 'dislikes', label: 'Сначала не популярные'},
+      ],
+      filter: 'all',
+      sort: 'date'
+    }
+  },
   methods: {
+    onFilterChange(value) {
+      this.filter = value;
+      bus.$emit(UPDATE_FILTER, value);
+    },
+    onSortChange(value) {
+      this.sort = value;
+      bus.$emit(UPDATE_SORT, value);
+    },
     beforeEnter(el) {
       el.style.height = 0;
     },
@@ -158,6 +195,40 @@ $style: navigation;
     @include media {
       display: none !important;
     }
+  }
+  &__gears {
+    position: sticky;
+    background-color: $N900;
+    top: 64px;
+    right: 0;
+    left: 0;
+    @extend %px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    @include flex(space-between, stretch, column);
+    @include media($screen-tablet-small) {
+      flex-direction: row;
+    }
+    @include media($screen-tablet) {
+      justify-content: flex-start;
+    }
+    @include media {
+      top: 84px;
+    }
+  }
+  &__select {
+    width: 100%;
+    &:not(:last-child) {
+      margin-bottom: 12px;
+    }
+    @include media($screen-tablet-small) {
+      width: 220px;
+      &:not(:last-child) {
+        margin-bottom: 0;
+        margin-right: 16px;
+      }
+    }
+
   }
 }
 $style: burger;

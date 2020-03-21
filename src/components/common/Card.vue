@@ -187,6 +187,7 @@ $style: card;
     overflow: hidden;
     white-space: nowrap;
     @include text($H500, 600, black);
+    word-break: break-all;
     @include media($screen-tablet) {
       text-overflow: clip;
       white-space: normal;

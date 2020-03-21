@@ -11,35 +11,39 @@
       </p>
 
       <p class="about__caption">Как это сделать?</p>
-      <article class="about__step">
-        <div class="about__row">
-          <img class="about__arrow about__arrow--first" src="@/assets/svg/arrow.svg" alt="" />
-          <p class="about__label">Жми на кнопку</p>
-        </div>
-        <app-button>Предложить занятие</app-button>
-      </article>
-      <article class="about__step">
-        <div class="about__row about__row--end">
-          <div class="about__arrow-wrapper">
-            <img class="about__arrow" src="@/assets/svg/arrow.svg" alt="" />
+      <div class="about__box">
+        <article class="about__step">
+          <div class="about__row">
+            <img class="about__arrow about__arrow--first" src="@/assets/svg/arrow.svg" alt="" />
+            <p class="about__label">Жми на кнопку</p>
           </div>
-          <p class="about__label">Предложи что то</p>
-        </div>
-        <app-input class="about__input" readonly :value="post.movies" type="movies" />
-        <app-input class="about__input" readonly :value="post.books" type="books" />
-        <app-input class="about__input" readonly :value="post.todo" type="todo" />
-        <app-input class="about__input" readonly :value="post.food" type="food" />
-        <app-input class="about__input" readonly :value="post.games" type="games" />
-        <app-input class="about__input" readonly :value="post.music" type="music" />
-        <app-input class="about__input" readonly :value="post.extra" type="extra" />
-      </article>
-      <article class="about__step">
-        <div class="about__row">
-          <img class="about__arrow about__arrow--first" src="@/assets/svg/arrow.svg" alt="" />
-          <p class="about__label">Появится такая карточка</p>
-        </div>
-        <card readonly color="#FF7452" :post="post" />
-      </article>
+          <router-link :to="{ name: 'Post' }">
+            <app-button>Предложить занятие</app-button>
+          </router-link>
+        </article>
+        <article class="about__step">
+          <div class="about__row about__row--end">
+            <div class="about__arrow-wrapper">
+              <img class="about__arrow" src="@/assets/svg/arrow.svg" alt="" />
+            </div>
+            <p class="about__label">Предложи что то</p>
+          </div>
+          <app-input class="about__input" readonly :value="post.movies" type="movies" />
+          <app-input class="about__input" readonly :value="post.books" type="books" />
+          <app-input class="about__input" readonly :value="post.todo" type="todo" />
+          <app-input class="about__input" readonly :value="post.food" type="food" />
+          <app-input class="about__input" readonly :value="post.games" type="games" />
+          <app-input class="about__input" readonly :value="post.music" type="music" />
+          <app-input class="about__input" readonly :value="post.extra" type="extra" />
+        </article>
+        <article class="about__step">
+          <div class="about__row">
+            <img class="about__arrow about__arrow--first" src="@/assets/svg/arrow.svg" alt="" />
+            <p class="about__label">Появится такая карточка</p>
+          </div>
+          <card readonly color="#FF7452" :post="post" />
+        </article>
+      </div>
     </div>
   </section>
 </template>
@@ -98,11 +102,16 @@ $style: about;
 .#{$style} {
   padding-top: 48px;
   padding-bottom: 48px;
-  @extend %px;
   &__container {
+    width: 100%;
+    @extend %px;
     @extend %container;
+  }
+  &__box {
     @include media($screen-desktop) {
-      @include flex(flex-start, center, column);
+      @include flex(flex-start, stretch, column);
+      max-width: 460px;
+      margin: 0 auto;
     }
   }
   &__text {

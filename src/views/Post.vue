@@ -5,28 +5,30 @@
         Привет! Поделись со всеми интересным и полезным! Например, посветуй хороший фильм, книгу,
         видеоигру или блюдо, которое можно приготовить дома
       </p>
-      <form class="post__form" @submit.prevent="publish">
-        <app-input class="post__input" v-model="input.name" type="name" />
-        <app-input class="post__input" v-model="input.movies" type="movies" />
-        <app-input class="post__input" v-model="input.books" type="books" />
-        <app-input class="post__input" v-model="input.todo" type="todo" />
-        <app-input class="post__input" v-model="input.food" type="food" />
-        <app-input class="post__input" v-model="input.games" type="games" />
-        <app-input class="post__input" v-model="input.music" type="music" />
-        <app-input class="post__input" v-model="input.extra" type="extra" />
-        <span class="post__label">🎨 Цвет карточки</span>
-        <colorpicker
-          :value="input.color"
-          @input="onChangeColor"
-          class="post__colors"
-          :palette="colors"
-        ></colorpicker>
-        <app-button :loading="loading" :disabled="disabled" class="post__button" type="secondary"
-          >Опубликовать</app-button
-        >
-      </form>
-      <span class="post__caption">Предпросмотр</span>
-      <card readonly :post="input" />
+      <div class="post__form-wrapper">
+        <form class="post__form" @submit.prevent="publish">
+          <app-input class="post__input" v-model="input.name" type="name" />
+          <app-input class="post__input" v-model="input.movies" type="movies" />
+          <app-input class="post__input" v-model="input.books" type="books" />
+          <app-input class="post__input" v-model="input.todo" type="todo" />
+          <app-input class="post__input" v-model="input.food" type="food" />
+          <app-input class="post__input" v-model="input.games" type="games" />
+          <app-input class="post__input" v-model="input.music" type="music" />
+          <app-input class="post__input" v-model="input.extra" type="extra" />
+          <span class="post__label">🎨 Цвет карточки</span>
+          <colorpicker
+            :value="input.color"
+            @input="onChangeColor"
+            class="post__colors"
+            :palette="colors"
+          ></colorpicker>
+          <app-button :loading="loading" :disabled="disabled" class="post__button" type="secondary"
+            >Опубликовать</app-button
+          >
+        </form>
+        <span class="post__caption">Предпросмотр</span>
+        <card readonly :post="input" />
+      </div>
     </div>
   </div>
 </template>
@@ -114,6 +116,12 @@ export default {
     padding-bottom: 24px;
     @extend %px;
     @extend %container;
+  }
+  &__form-wrapper {
+    @include media {
+      max-width: 500px;
+      margin: 0 auto;
+    }
   }
   &__description {
     @include text($H500);
