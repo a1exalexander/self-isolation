@@ -22,7 +22,6 @@ import { seo } from './data';
 export default {
   name: 'App',
   metaInfo: {
-    title: seo.title,
     titleTemplate: `%s | ${seo.title}`,
     meta: [
       { name: 'title', content: seo.description },

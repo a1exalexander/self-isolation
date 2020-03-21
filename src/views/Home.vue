@@ -12,16 +12,16 @@
 import Card from '@/components/common/Card';
 import { db, eventBus, dbLocal, bus } from '../services';
 import { UPDATE_POSTS, UPDATE_FILTER, UPDATE_SORT } from '../constants';
+import { seo } from '../data';
 
 export default {
   name: 'Home',
   components: {
     Card,
   },
-  head: {
-    title: {
-      inner: 'Самоизоляция - поделись со всеми интересами и рекомендациями'
-    }
+  metaInfo: {
+    title: seo.title,
+    titleTemplate: null
   },
   firestore: {
     posts: db.collection('posts')
