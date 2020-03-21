@@ -25,7 +25,7 @@
       <navigation-menu class="navigation__menu" v-show="menu" />
     </transition>
     <app-line class="navigation__line" />
-    <div class="navigation__gears">
+    <div class="navigation__gears" v-if='$route.name === "Home"'>
       <app-select class='navigation__select' :list='sorts' :value='sort' @change="onSortChange"></app-select>
       <app-select class='navigation__select' :list='filters' :value='filter' @change="onFilterChange"></app-select>
     </div>
