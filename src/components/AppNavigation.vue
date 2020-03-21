@@ -130,8 +130,16 @@ $style: navigation;
     position: sticky;
   }
   &__title {
-    @include text($H800, 600);
+    @include text($H400, 600);
     @include flex(flex-start, center);
+    font-weight: 700;
+    margin-right: 12px;
+    @include media($screen-iphone-plus) {
+      font-size: $H500;
+    }
+    @include media($screen-tablet-small) {
+      font-size: $H800;
+    }
   }
   &__box {
     position: relative;
