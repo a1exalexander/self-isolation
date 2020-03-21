@@ -61,6 +61,9 @@ export default {
     colorpicker: Compact,
     Card
   },
+  metaInfo: {
+    title: 'Публикация'
+  },
   data() {
     return {
       loading: false,

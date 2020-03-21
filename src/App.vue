@@ -15,53 +15,76 @@
 
 <script>
 import BackTopButton from '@/components/common/BackTopButton';
-import AppNavigation from '@/components/AppNavigation'
-import AppFooter from '@/components/AppFooter'
+import AppNavigation from '@/components/AppNavigation';
+import AppFooter from '@/components/AppFooter';
+import { seo } from './data';
 
 export default {
   name: 'App',
+  metaInfo: {
+    title: seo.title,
+    titleTemplate: `%s | ${seo.title}`,
+    meta: [
+      { name: 'title', content: seo.description },
+      { name: 'description', content: seo.description },
+      { vmid: 'description', name: 'description', content: seo.description },
+      { name: 'og:title', content: `${seo.title} - ${seo.heading}` },
+      { name: 'og:description', content: seo.description },
+      { name: 'og:url', content: seo.website },
+      { name: 'og:site_name', content: seo.title },
+      { name: 'og:type', content: 'website' },
+      { name: 'og:image', content: seo.image },
+      { name: 'twitter:card', content: seo.twitter.card },
+      { name: 'twitter:title', content: `${seo.title} - ${seo.heading}` },
+      { name: 'twitter:description', content: seo.description },
+      { name: 'twitter:creator', content: seo.twitter.username },
+      { name: 'twitter:site', content: seo.twitter.username },
+      { name: 'twitter:image', content: seo.twitter.image },
+      { name: 'twitter:image:src', content: seo.twitter.image },
+    ]
+  },
   components: {
     AppNavigation,
     AppFooter,
     BackTopButton
   },
-  data () {
+  data() {
     return {
       heightDefault: 60,
       heightActive: 222,
       menu: false
-    }
+    };
   },
   methods: {
-    toggleMenu () {
-      this.menu = !this.menu
+    toggleMenu() {
+      this.menu = !this.menu;
     },
-    showMenu () {
-      this.menu = true
+    showMenu() {
+      this.menu = true;
     },
-    hideMenu () {
-      this.menu = false
+    hideMenu() {
+      this.menu = false;
     }
   },
   computed: {
-    getPadding () {
-      const DEFAULT_HEIGHT = this.heightDefault + 4
-      return this.menu ? `${DEFAULT_HEIGHT + this.heightActive}px` : `${DEFAULT_HEIGHT}px`
+    getPadding() {
+      const DEFAULT_HEIGHT = this.heightDefault + 4;
+      return this.menu ? `${DEFAULT_HEIGHT + this.heightActive}px` : `${DEFAULT_HEIGHT}px`;
     }
   },
   watch: {
-    $route (route) {
+    $route(route) {
       const timer = setTimeout(() => {
-        this.menu = false
-        clearTimeout(timer)
-      }, 300)
+        this.menu = false;
+        clearTimeout(timer);
+      }, 300);
     }
   },
-  beforeRouteLeave (to, from, next) {
-    console.log('sdsad')
-    next()
+  beforeRouteLeave(to, from, next) {
+    console.log('sdsad');
+    next();
   }
-}
+};
 </script>
 
 <style lang="scss">

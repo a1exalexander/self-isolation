@@ -1,7 +1,6 @@
 const fs = require('fs-extra');
-const routes = require('./src/router/routes');
 
-module.exports = function seo() {
+module.exports = function seo(routes = ['/']) {
   const formatDate = date => {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),
@@ -31,7 +30,7 @@ module.exports = function seo() {
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${routes.map(
-      ({ path }) => `<url>
+      path => `<url>
       <loc>${BASE_URL}${path}</loc>
       <lastmod>${today}</lastmod>
     </url>`
