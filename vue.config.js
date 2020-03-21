@@ -1,8 +1,9 @@
 const path = require('path');
 const PrerenderSpaPlugin = require('prerender-spa-plugin');
+const seo = require('./seo');
 
 if (process.env.NODE_ENV === 'production') {
-  // generateSitemap();
+  seo();
 }
 
 const productionPlugins = [
@@ -17,7 +18,6 @@ const productionPlugins = [
       // request has fetched all the necessary data,
       // so we create a snapshot of the page after the
       // `data-view` attribute exists in the DOM.
-      headless: false,
       renderAfterDocumentEvent: 'render-event'
     })
   })
