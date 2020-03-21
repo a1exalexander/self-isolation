@@ -1,7 +1,7 @@
 <template>
   <article
     class="card"
-    :class="{ _active: open }"
+    :class="{ _active: open, _filtered: filter !== 'all' }"
     :style="{ backgroundColor: post.color }"
     @click="open = true"
   >
@@ -27,31 +27,31 @@
     </header>
     <app-line :height="2" direction="reverse" />
     <ul class="card__list">
-      <li title="Фильмы, сериалы, передачи..." class="card__item" v-if="post.movies">
+      <li v-if="!!post.movies && ['all', 'movies'].includes(filter)" key='movies' title="Фильмы, сериалы, передачи..." class="card__item">
         <span class="card__label" role="img" aria-label="movies">🎥</span>
         <p class="card__text">{{ post.movies }}</p>
       </li>
-      <li title="Книги" class="card__item" v-if="post.books">
+      <li v-if="!!post.books && ['all', 'books'].includes(filter)" key='books' title="Книги" class="card__item">
         <span class="card__label" role="img" aria-label="books">📖</span>
         <p class="card__text">{{ post.books }}</p>
       </li>
-      <li title="Чем заняться свободное время" class="card__item" v-if="post.todo">
+      <li v-if="!!post.todo && ['all', 'todo'].includes(filter)" key='todo' title="Чем заняться свободное время" class="card__item">
         <span class="card__label" role="img" aria-label="time">⏳</span>
         <p class="card__text">{{ post.todo }}</p>
       </li>
-      <li title="Еда" class="card__item" v-if="post.food">
+      <li v-if="!!post.food && ['all', 'food'].includes(filter)" key='food' title="Еда" class="card__item">
         <span class="card__label" role="img" aria-label="food">🍕</span>
         <p class="card__text">{{ post.food }}</p>
       </li>
-      <li title="Игры" class="card__item" v-if="post.games">
+      <li v-if="!!post.games && ['all', 'games'].includes(filter)" key='games' title="Игры" class="card__item">
         <span class="card__label" role="img" aria-label="food">🎮</span>
         <p class="card__text">{{ post.games }}</p>
       </li>
-      <li title="Музыка" class="card__item" v-if="post.music">
+      <li v-if="!!post.music && ['all', 'music'].includes(filter)" key='music' title="Музыка" class="card__item">
         <span class="card__label" role="img" aria-label="food">🎵</span>
         <p class="card__text">{{ post.music }}</p>
       </li>
-      <li title="Дополниельно" class="card__item" v-if="post.extra">
+      <li v-if="!!post.extra && ['all', 'extra'].includes(filter)" key='extra' title="Дополниельно" class="card__item">
         <span class="card__label" role="img" aria-label="food">⚡</span>
         <p class="card__text">{{ post.extra }}</p>
       </li>
@@ -75,6 +75,10 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    filter: {
+      type: String,
+      default: 'all'
     },
     post: {
       type: Object,
@@ -189,6 +193,13 @@ $style: card;
     @include text($H500, 600, black);
     word-break: break-all;
     @include media($screen-tablet) {
+      text-overflow: clip;
+      white-space: normal;
+      overflow: visible;
+    }
+  }
+  &._filtered {
+    .#{$style}__text {
       text-overflow: clip;
       white-space: normal;
       overflow: visible;

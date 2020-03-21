@@ -3,7 +3,7 @@
     <h2 class="home__title">Привет! Подились со всеми интересами и рекомендациями.</h2>
     <h2 class="home__title home__title--large">Happy Quarantine!</h2>
     <div class="home__list">
-      <card class="home__item" v-for="post in getPosts" :post="post" :key="post.id" />
+      <card class="home__item" v-for="post in getPosts" :post="post" :filter='filter' :key="post.id" />
     </div>
     <back-to-top bottom="50px" right="50px">
       <back-top-button />
