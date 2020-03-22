@@ -157,7 +157,7 @@ export default {
   }
   &__global-item {
     flex: 1 1 100px;
-    padding: 22px 24px 24px;
+    padding: 24px;
     border-radius: 4px;
     @include flex(flex-start, center, column);
     &:not(:last-child) {
@@ -182,10 +182,12 @@ export default {
   &__label {
     @include text($H300, 300, black);
     text-transform: uppercase;
-    margin-bottom: 6px;
+    line-height: 1;
+    margin-bottom: 10px;
   }
   &__value {
     @include text($H900, 700, black);
+    line-height: 1;
   }
   &__list {
     list-style: none;
@@ -212,7 +214,7 @@ export default {
     white-space: nowrap;
     @include text($H400, 400, black);
     &--bold {
-      font-weight: 600;
+      font-weight: 700;
     }
   }
 }
