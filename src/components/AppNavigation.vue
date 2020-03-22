@@ -2,7 +2,8 @@
   <nav class="navigation">
     <div class="navigation__box" :style="{ height: `${heightDefault}px` }">
       <h1 class="navigation__title">
-        <img class="navigation__icon" src="@/assets/svg/isolate.svg" alt="" />Счастливой Самоизоляции!
+        <img class="navigation__icon" src="@/assets/svg/isolate.svg" alt="" />Счастливой
+        Самоизоляции!
       </h1>
       <navigation-menu class="navigation__desktop-menu" />
       <button
@@ -25,17 +26,32 @@
       <navigation-menu class="navigation__menu" v-show="menu" />
     </transition>
     <app-line class="navigation__line" />
-    <div class="navigation__gears" v-if='$route.name === "Home"'>
-      <app-select class='navigation__select' :list='sorts' :value='sort' @change="onSortChange"></app-select>
-      <app-select class='navigation__select' :list='filters' :value='filter' @change="onFilterChange"></app-select>
+    <div class="navigation__gears" v-if="$route.name === 'Home'" key="home">
+      <app-select
+        class="navigation__select"
+        :list="sorts"
+        :value="sort"
+        @change="onSortChange"
+      ></app-select>
+      <app-select
+        class="navigation__select"
+        :list="filters"
+        :value="filter"
+        @change="onFilterChange"
+      ></app-select>
+    </div>
+    <div class="navigation__gears" v-if="$route.name === 'Info'" key="info">
+      <app-search v-model.trim="search" class="navigation__search" />
+      <h2 class="navigation__gears-title">COVID-19 Online</h2>
     </div>
   </nav>
 </template>
 
 <script>
 import AppSelect from './common/AppSelect';
+import AppSearch from './common/AppSearch';
 import { bus } from '../services';
-import { UPDATE_FILTER, UPDATE_SORT } from '../constants';
+import { UPDATE_FILTER, UPDATE_SORT, UPDATE_SEARCH } from '../constants';
 import anime from 'animejs';
 import NavigationMenu from './navigation/NavigationMenu';
 
@@ -43,7 +59,8 @@ export default {
   name: 'AppNavigation',
   components: {
     NavigationMenu,
-    AppSelect
+    AppSelect,
+    AppSearch
   },
   props: {
     heightDefault: {
@@ -62,23 +79,24 @@ export default {
   data() {
     return {
       filters: [
-        {value: 'all', label: 'Показать все'},
-        {value: 'movies', label: '🎥 Фильмы, сериалы, передачи'},
-        {value: 'books', label: '📖 Книги, статьи...'},
-        {value: 'todo', label: '⏳ Как полезно убить время'},
-        {value: 'food', label: '🍕 Еда'},
-        {value: 'games', label: '🎮 Видеоигры и настольные игры'},
-        {value: 'music', label: '🎵 Музыка'},
-        {value: 'extra', label: '⚡ Дополнительно'},
+        { value: 'all', label: 'Показать все' },
+        { value: 'movies', label: '🎥 Фильмы, сериалы, передачи' },
+        { value: 'books', label: '📖 Книги, статьи...' },
+        { value: 'todo', label: '⏳ Как полезно убить время' },
+        { value: 'food', label: '🍕 Еда' },
+        { value: 'games', label: '🎮 Видеоигры и настольные игры' },
+        { value: 'music', label: '🎵 Музыка' },
+        { value: 'extra', label: '⚡ Дополнительно' }
       ],
       sorts: [
-        {value: 'date', label: 'Сначала новые'},
-        {value: 'likes', label: 'Сначала популярные'},
-        {value: 'dislikes', label: 'Сначала не популярные'},
+        { value: 'date', label: 'Сначала новые' },
+        { value: 'likes', label: 'Сначала популярные' },
+        { value: 'dislikes', label: 'Сначала не популярные' }
       ],
       filter: 'all',
-      sort: 'date'
-    }
+      sort: 'date',
+      search: ''
+    };
   },
   methods: {
     onFilterChange(value) {
@@ -113,6 +131,11 @@ export default {
         complete: done
       });
     }
+  },
+  watch: {
+    search(value) {
+      bus.$emit(UPDATE_SEARCH, value);
+    }
   }
 };
 </script>
@@ -129,15 +152,28 @@ $style: navigation;
   @include media {
     position: sticky;
   }
+  &__search {
+    width: 100%;
+    @include media($screen-tablet) {
+      width: 320px;
+    }
+  }
   &__title {
     @include text($H400, 600);
     @include flex(flex-start, center);
     font-weight: 700;
     margin-right: 12px;
+    flex: 1 1;
     @include media($screen-iphone-plus) {
       font-size: $H500;
     }
     @include media($screen-tablet-small) {
+      font-size: $H800;
+    }
+    @include media {
+      font-size: $H700;
+    }
+    @include media($screen-fullhd) {
       font-size: $H800;
     }
   }
@@ -168,7 +204,9 @@ $style: navigation;
   &__desktop-menu {
     display: none;
     @include media {
+      overflow: visible;
       display: flex;
+      flex: 1 0;
     }
   }
   &__list {
@@ -227,6 +265,17 @@ $style: navigation;
       top: 84px;
     }
   }
+  &__gears-title {
+    display: none;
+    @include media($screen-tablet) {
+      margin-left: 24px;
+      @include text($H900, 700);
+      text-transform: uppercase;
+      align-self: center;
+      padding-bottom: 3px;
+      display: inline-block;
+    }
+  }
   &__select {
     width: 100%;
     &:not(:last-child) {
@@ -239,7 +288,6 @@ $style: navigation;
         margin-right: 16px;
       }
     }
-
   }
 }
 $style: burger;

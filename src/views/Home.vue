@@ -56,16 +56,7 @@ export default {
 
 <style lang="scss">
 .home {
-  padding: 24px;
-  padding-top: 152px;
-  @extend %px;
-  flex: 1 1;
-  @include media($screen-tablet-small) {
-    padding-top: 102px;
-  }
-  @include media {
-    padding-top: 42px;
-  }
+  @extend %padding-with-gears;
   &__list {
     flex: 1 1;
     @include media($screen-tablet) {

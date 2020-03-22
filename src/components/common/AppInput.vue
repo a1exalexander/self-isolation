@@ -6,6 +6,7 @@
       :placeholder="placeholder"
       @input="e => $emit('input', e.target.value)"
       class="input__input"
+      :maxlength="maxLength"
       type="text"
       :readonly="readonly"
   /></label>
@@ -21,6 +22,10 @@ export default {
       validator(value) {
         return Object.keys(labels).indexOf(value) !== -1
       }
+    },
+    maxLength: {
+      type: Number,
+      default: 200
     },
     label: {
       type: String,

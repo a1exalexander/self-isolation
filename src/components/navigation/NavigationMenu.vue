@@ -13,11 +13,15 @@
           >Описание</span
         ></router-link
       >
+      <router-link tag="li" exact class="navigation-menu__link" :to="{ name: 'Info' }"
+        ><img class="navigation-menu__link-icon" src="@/assets/svg/virus.svg" alt="" /><span
+          class="navigation-menu__link-text"
+          >COVID-19</span
+        ></router-link
+      >
     </ul>
     <div class="navigation-menu__button-wrapper">
-      <router-link :to="{ name: 'Post' }">
-        <app-button>Предложить занятие</app-button>
-      </router-link>
+      <app-button @click='() => $router.push({ name: "Post" })'>Предложить занятие</app-button>
     </div>
   </div>
 </template>
@@ -51,11 +55,17 @@ export default {
   }
   &__link {
     @include flex(flex-start, center);
-    padding: 12px;
+    padding: 10px;
     border-radius: 4px;
     @include transition(all);
     cursor: pointer;
     @include media {
+      padding: 8px 10px;
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+    @include media($screen-fullhd) {
       padding: 10px 18px;
       &:not(:last-child) {
         margin-right: 18px;
@@ -69,11 +79,12 @@ export default {
     }
   }
   &__link-icon {
-    height: 30px;
-    margin-right: 12px;
+    height: 26px;
+    margin-right: 8px;
   }
   &__link-text {
-    @include text($H600, 600);
+    @include text($H500, 600);
+    white-space: nowrap;
   }
   &__button-wrapper {
     padding: 0 24px 24px;

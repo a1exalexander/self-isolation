@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       heightDefault: 60,
-      heightActive: 222,
+      heightActive: 252,
       menu: false
     };
   },

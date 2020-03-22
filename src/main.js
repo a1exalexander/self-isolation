@@ -1,6 +1,7 @@
 import Vue from 'vue';
-import Meta from 'vue-meta'
-import VueAnalytics from 'vue-analytics'
+import Meta from 'vue-meta';
+import VueAnalytics from 'vue-analytics';
+import VueNumerals from 'vue-numerals';
 import App from './App.vue';
 import { router } from './router';
 import store from './store';
@@ -10,6 +11,7 @@ import AppInput from './components/common/AppInput';
 
 Vue.config.productionTip = false;
 
+Vue.use(VueNumerals);
 Vue.use(Meta);
 Vue.use(VueAnalytics, {
   id: 'UA-161480195-1',

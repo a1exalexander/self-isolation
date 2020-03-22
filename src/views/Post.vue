@@ -7,14 +7,24 @@
       </p>
       <div class="post__form-wrapper">
         <form class="post__form" @submit.prevent="publish">
-          <app-input class="post__input" v-model="input.name" type="name" />
-          <app-input class="post__input" v-model="input.movies" type="movies" />
-          <app-input class="post__input" v-model="input.books" type="books" />
-          <app-input class="post__input" v-model="input.todo" type="todo" />
-          <app-input class="post__input" v-model="input.food" type="food" />
-          <app-input class="post__input" v-model="input.games" type="games" />
-          <app-input class="post__input" v-model="input.music" type="music" />
-          <app-input class="post__input" v-model="input.extra" type="extra" />
+          <app-input class="post__input" :max-length="20" v-model.trim="input.name" type="name" />
+          <app-input
+            class="post__input"
+            :max-length="50"
+            v-model.trim="input.movies"
+            type="movies"
+          />
+          <app-input class="post__input" :max-length="50" v-model.trim="input.books" type="books" />
+          <app-input class="post__input" :max-length="100" v-model.trim="input.todo" type="todo" />
+          <app-input class="post__input" :max-length="50" v-model.trim="input.food" type="food" />
+          <app-input class="post__input" :max-length="50" v-model.trim="input.games" type="games" />
+          <app-input class="post__input" :max-length="50" v-model.trim="input.music" type="music" />
+          <app-input
+            class="post__input"
+            :max-length="100"
+            v-model.trim="input.extra"
+            type="extra"
+          />
           <span class="post__label">🎨 Цвет карточки</span>
           <colorpicker
             :value="input.color"
@@ -53,7 +63,7 @@ const init = {
   likes: 0,
   dislikes: 0,
   date: { seconds: Date.now() / 1000 }
-}
+};
 
 export default {
   name: 'Post',
@@ -67,16 +77,19 @@ export default {
   data() {
     return {
       loading: false,
-      input: {...init},
+      input: { ...init },
       colors
     };
   },
   computed: {
     disabled() {
       const { input } = this;
-      return !(
-        input.name &&
-        [
+      return (
+        input.likes !== 0 ||
+        input.dislikes !== 0 ||
+        !colors.includes(input.color) ||
+        !input.name ||
+        ![
           !!input.movies,
           !!input.books,
           !!input.todo,
@@ -93,15 +106,16 @@ export default {
       this.input.color = color.hex;
     },
     clean() {
-      this.input = {...init}
+      this.input = { ...init };
     },
     async publish() {
+      if (this.disabled) return;
       this.loading = true;
       try {
-        const data = { ...this.input, date: Timestamp.fromDate(new Date()) }
-        const res = await db.collection('posts').add(data)
+        const data = { ...this.input, date: Timestamp.fromDate(new Date()) };
+        const res = await db.collection('posts').add(data);
         logger.info(res);
-        this.clean()
+        this.clean();
       } catch (err) {
         logger.error(err);
       } finally {
