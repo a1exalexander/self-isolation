@@ -2,12 +2,12 @@
   <article
     class="card"
     :class="{ _active: open, _filtered: filter !== 'all' }"
-    :style="{ backgroundColor: post.color }"
+    :style="{ backgroundColor: getColor }"
     @click="open = true"
   >
     <header class="card__header">
       <div class="card__info">
-        <h3 class="card__autor">@{{ post.name }}</h3>
+        <h3 class="card__autor">@{{ post.name | truncate(20) }}</h3>
         <span class="card__date">{{ getDate }}</span>
       </div>
       <div class="card__like-wrapper" @click.stop v-if="!readonly">
@@ -29,31 +29,31 @@
     <ul class="card__list">
       <li v-if="!!post.movies && ['all', 'movies'].includes(filter)" key='movies' title="Фильмы, сериалы, передачи..." class="card__item">
         <span class="card__label" role="img" aria-label="movies">🎥</span>
-        <p class="card__text">{{ post.movies }}</p>
+        <p class="card__text">{{ post.movies | truncate(50) }}</p>
       </li>
       <li v-if="!!post.books && ['all', 'books'].includes(filter)" key='books' title="Книги" class="card__item">
         <span class="card__label" role="img" aria-label="books">📖</span>
-        <p class="card__text">{{ post.books }}</p>
+        <p class="card__text">{{ post.books | truncate(50) }}</p>
       </li>
       <li v-if="!!post.todo && ['all', 'todo'].includes(filter)" key='todo' title="Чем заняться свободное время" class="card__item">
         <span class="card__label" role="img" aria-label="time">⏳</span>
-        <p class="card__text">{{ post.todo }}</p>
+        <p class="card__text">{{ post.todo | truncate(100) }}</p>
       </li>
       <li v-if="!!post.food && ['all', 'food'].includes(filter)" key='food' title="Еда" class="card__item">
         <span class="card__label" role="img" aria-label="food">🍕</span>
-        <p class="card__text">{{ post.food }}</p>
+        <p class="card__text">{{ post.food | truncate(50) }}</p>
       </li>
       <li v-if="!!post.games && ['all', 'games'].includes(filter)" key='games' title="Игры" class="card__item">
         <span class="card__label" role="img" aria-label="food">🎮</span>
-        <p class="card__text">{{ post.games }}</p>
+        <p class="card__text">{{ post.games | truncate(50) }}</p>
       </li>
       <li v-if="!!post.music && ['all', 'music'].includes(filter)" key='music' title="Музыка" class="card__item">
         <span class="card__label" role="img" aria-label="food">🎵</span>
-        <p class="card__text">{{ post.music }}</p>
+        <p class="card__text">{{ post.music | truncate(50) }}</p>
       </li>
       <li v-if="!!post.extra && ['all', 'extra'].includes(filter)" key='extra' title="Дополниельно" class="card__item">
-        <span class="card__label" role="img" aria-label="food">⚡</span>
-        <p class="card__text">{{ post.extra }}</p>
+        <span class="card__label" role="img" aria-label="extra">⚡</span>
+        <p class="card__text">{{ post.extra | truncate(100) }}</p>
       </li>
     </ul>
   </article>
@@ -61,7 +61,7 @@
 
 <script>
 import { IconHeart, IconBrokenHeart } from '../icons';
-import { dateNow, formatDate } from '../../utils';
+import { dateNow, formatDate, colors } from '../../utils';
 import { likeStorage, db, eventBus, logger } from '../../services';
 import { UPDATE_POSTS } from '../../constants';
 
@@ -149,6 +149,9 @@ export default {
   computed: {
     getDate() {
       return formatDate(this.post?.date?.seconds)
+    },
+    getColor() {
+      return colors.includes(this.post.color) ? this.post.color : colors[0];
     }
   }
 };

@@ -8,6 +8,7 @@ import store from './store';
 import AppButton from './components/common/AppButton';
 import AppLine from './components/common/AppLine';
 import AppInput from './components/common/AppInput';
+import { truncate } from './utils';
 
 Vue.config.productionTip = false;
 
@@ -24,6 +25,10 @@ Vue.use(VueAnalytics, {
 Vue.component('app-button', AppButton);
 Vue.component('app-line', AppLine);
 Vue.component('app-input', AppInput);
+
+Vue.filter('truncate', function(value, max = 100) {
+  return truncate(value, max);
+});
 
 new Vue({
   router,

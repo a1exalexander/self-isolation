@@ -3,21 +3,27 @@
     <h2 class="home__title">Привет! Поделись со всеми интересами и рекомендациями.</h2>
     <h2 class="home__title home__title--large">Happy Quarantine!</h2>
     <div class="home__list">
-      <card class="home__item" v-for="post in getPosts" :post="post" :filter='filter' :key="post.id" />
+      <card
+        class="home__item"
+        v-for="post in getPosts"
+        :post="post"
+        :filter="filter"
+        :key="post.id"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import Card from '@/components/common/Card';
-import { db, eventBus, dbLocal, bus } from '../services';
+import { db, eventBus, dbLocal, bus, logger } from '../services';
 import { UPDATE_POSTS, UPDATE_FILTER, UPDATE_SORT } from '../constants';
 import { seo } from '../data';
 
 export default {
   name: 'Home',
   components: {
-    Card,
+    Card
   },
   metaInfo: {
     title: seo.title,
@@ -50,6 +56,25 @@ export default {
     bus.$on(UPDATE_SORT, value => {
       this.sort = value;
     });
+  },
+  watch: {
+    posts() {
+      this.posts.forEach(
+        ({ color, name, movies, books, todo, food, games, music, extra, likes, dislikes }) => {
+          const needDelete =
+            likes < 0 ||
+            dislikes < 0 ||
+            !name | ![movies, books, todo, food, games, music, extra].every(subItem => !subItem);
+          if (needDelete) {
+            db.collection('posts')
+              .doc(item.id)
+              .delete()
+              .then(() => logger.info(`Post ${item.id} deleted`))
+              .error(() => logger.error(`Post ${item.id} not deleted`));
+          }
+        }
+      );
+    }
   }
 };
 </script>
