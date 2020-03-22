@@ -64,14 +64,17 @@ code {
 .fade-leave-to {
   opacity: 0;
 }
-.cell-enter,
-.cell-leave-to {
+.flip {
+  transition: all 0.2s;
+}
+.flip-enter,
+.flip-leave-to {
   opacity: 0;
   transform: translateY(30px);
 }
-.cell-enter-active, .cell-leave-active {
-  transition: all 0.4s;
-}
-.cell-move {
+.flip-move {
   transition: transform 0.4s;
+}
+.flip-leave-active {
+  position: absolute;
 }

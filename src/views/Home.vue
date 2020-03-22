@@ -2,7 +2,7 @@
   <section class="home">
     <h2 class="home__title">Привет! Поделись со всеми интересами и рекомендациями.</h2>
     <h2 class="home__title home__title--large">Happy Quarantine!</h2>
-    <transition-group name="cell" class="home__list" tag="div">
+    <transition-group name="flip" class="home__list" tag="div">
       <card
         class="home__item"
         v-for="post in getPosts"

@@ -21,7 +21,7 @@
       </div>
     </transition>
     <h3 class="info__subtitle">Данные по странам</h3>
-    <transition-group name="cell" class="info__list" tag="ul">
+    <transition-group name="flip" class="info__list" tag="ul">
       <li class="info__item" v-for="item in getCountries" :key="item.country">
         <h4 class="info__country">{{ item.country }}</h4>
         <div class="info__row">
@@ -56,14 +56,7 @@ import { UPDATE_SEARCH } from '../constants';
 export default {
   name: 'Info',
   metaInfo: {
-    title: 'COVID-19 ONLINE',
-    script: [
-      {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js',
-        async: true,
-        defer: true
-      }
-    ]
+    title: 'COVID-19 ONLINE'
   },
   data() {
     return {
@@ -112,7 +105,7 @@ export default {
     bus.$on(UPDATE_SEARCH, value => {
       this.search = value;
     });
-    console.log(covidService.getGlobalSnapshot())
+    console.log(covidService.getGlobalSnapshot());
     const { cases, deaths, recovered } = await covidService.getGlobal();
     this.cases = cases;
     this.deaths = deaths;
