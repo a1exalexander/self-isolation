@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
+  <section class="home">
     <h2 class="home__title">Привет! Поделись со всеми интересами и рекомендациями.</h2>
     <h2 class="home__title home__title--large">Happy Quarantine!</h2>
-    <div class="home__list">
+    <transition-group name="cell" class="home__list" tag="div">
       <card
         class="home__item"
         v-for="post in getPosts"
@@ -10,8 +10,8 @@
         :filter="filter"
         :key="post.id"
       />
-    </div>
-  </div>
+    </transition-group>
+  </section>
 </template>
 
 <script>

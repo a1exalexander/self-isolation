@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app" :style="{ paddingTop: getPadding }">
+  <main id="app" class="app" :style="{ paddingTop: getPadding }">
     <app-navigation
       :height-default="heightDefault"
       :height-active="heightActive"
@@ -12,7 +12,7 @@
     </transition>
     <app-footer />
     <BackTopButton />
-  </div>
+  </main>
 </template>
 
 <script>

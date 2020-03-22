@@ -70,8 +70,8 @@ code {
   transform: translateY(30px);
 }
 .cell-enter-active, .cell-leave-active {
-  transition: all 0.5s;
+  transition: all 0.4s;
 }
 .cell-move {
-  transition: transform 1s;
+  transition: transform 0.4s;
 }
