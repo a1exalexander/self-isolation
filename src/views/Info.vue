@@ -15,7 +15,7 @@
           </li>
           <li class="info__global-item info__global-item--success">
             <span class="info__label">Выздоровлений</span>
-            <span class="info__value">{{ tweenedRecovered | numeralFormat }}</span>
+            <span class="info__value">{{ animatedRecovered | numeralFormat }}</span>
           </li>
         </ul>
       </div>
@@ -62,12 +62,9 @@ export default {
     return {
       countries: [...covidService.getCountriesSnapshot()],
       search: '',
-      tweenedCases: 0,
-      tweenedDeaths: 0,
-      tweenedRecovered: 0,
-      cases: 0,
-      deaths: 0,
-      recovered: 0
+      cases: covidService.getGlobalSnapshot().cases,
+      deaths: covidService.getGlobalSnapshot().deaths,
+      recovered: covidService.getGlobalSnapshot().recovered
     };
   },
   computed: {
@@ -81,24 +78,13 @@ export default {
       );
     },
     animatedCases() {
-      return this.tweenedCases.toFixed(0);
+      return this.cases.toFixed(0);
     },
     animatedDeaths() {
-      return this.tweenedDeaths.toFixed(0);
+      return this.deaths.toFixed(0);
     },
     animatedRecovered() {
-      return this.tweenedRecovered.toFixed(0);
-    }
-  },
-  watch: {
-    cases(value) {
-      TweenLite.to(this.$data, 1, { tweenedCases: value });
-    },
-    deaths(value) {
-      TweenLite.to(this.$data, 1, { tweenedDeaths: value });
-    },
-    recovered(value) {
-      TweenLite.to(this.$data, 1, { tweenedRecovered: value });
+      return this.recovered.toFixed(0);
     }
   },
   async created() {
@@ -107,9 +93,7 @@ export default {
     });
     console.log(covidService.getGlobalSnapshot());
     const { cases, deaths, recovered } = await covidService.getGlobal();
-    this.cases = cases;
-    this.deaths = deaths;
-    this.recovered = recovered;
+    TweenLite.to(this.$data, 2, { cases, deaths, recovered });
     this.countries = [...(await covidService.getAll())];
   }
 };
