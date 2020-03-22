@@ -7,7 +7,9 @@
       @toggle-menu="toggleMenu"
       @hide-menu="hideMenu"
     />
-    <router-view class="app__view" />
+    <transition name='fade' appear mode="out-in">
+      <router-view class="app__view" />
+    </transition>
     <app-footer />
     <BackTopButton />
   </div>
