@@ -14,14 +14,14 @@
             v-model.trim="input.movies"
             type="movies"
           />
-          <app-input class="post__input" :max-length="50" v-model.trim="input.books" type="books" />
-          <app-input class="post__input" :max-length="100" v-model.trim="input.todo" type="todo" />
-          <app-input class="post__input" :max-length="50" v-model.trim="input.food" type="food" />
-          <app-input class="post__input" :max-length="50" v-model.trim="input.games" type="games" />
-          <app-input class="post__input" :max-length="50" v-model.trim="input.music" type="music" />
+          <app-input class="post__input" :max-length="100" v-model.trim="input.books" type="books" />
+          <app-input class="post__input" :max-length="200" v-model.trim="input.todo" type="todo" />
+          <app-input class="post__input" :max-length="100" v-model.trim="input.food" type="food" />
+          <app-input class="post__input" :max-length="100" v-model.trim="input.games" type="games" />
+          <app-input class="post__input" :max-length="100" v-model.trim="input.music" type="music" />
           <app-input
             class="post__input"
-            :max-length="100"
+            :max-length="200"
             v-model.trim="input.extra"
             type="extra"
           />

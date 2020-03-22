@@ -34,7 +34,7 @@
         class="card__item"
       >
         <span class="card__label" role="img" aria-label="movies">🎥</span>
-        <p class="card__text">{{ post.movies | truncate(50) }}</p>
+        <p class="card__text">{{ post.movies | truncate(100) }}</p>
       </li>
       <li
         v-if="!!post.books && ['all', 'books'].includes(filter)"
@@ -43,7 +43,7 @@
         class="card__item"
       >
         <span class="card__label" role="img" aria-label="books">📖</span>
-        <p class="card__text">{{ post.books | truncate(50) }}</p>
+        <p class="card__text">{{ post.books | truncate(100) }}</p>
       </li>
       <li
         v-if="!!post.todo && ['all', 'todo'].includes(filter)"
@@ -52,7 +52,7 @@
         class="card__item"
       >
         <span class="card__label" role="img" aria-label="time">⏳</span>
-        <p class="card__text">{{ post.todo | truncate(100) }}</p>
+        <p class="card__text">{{ post.todo | truncate(200) }}</p>
       </li>
       <li
         v-if="!!post.food && ['all', 'food'].includes(filter)"
@@ -61,7 +61,7 @@
         class="card__item"
       >
         <span class="card__label" role="img" aria-label="food">🍕</span>
-        <p class="card__text">{{ post.food | truncate(50) }}</p>
+        <p class="card__text">{{ post.food | truncate(100) }}</p>
       </li>
       <li
         v-if="!!post.games && ['all', 'games'].includes(filter)"
@@ -70,7 +70,7 @@
         class="card__item"
       >
         <span class="card__label" role="img" aria-label="food">🎮</span>
-        <p class="card__text">{{ post.games | truncate(50) }}</p>
+        <p class="card__text">{{ post.games | truncate(100) }}</p>
       </li>
       <li
         v-if="!!post.music && ['all', 'music'].includes(filter)"
@@ -78,8 +78,8 @@
         title="Музыка"
         class="card__item"
       >
-        <span class="card__label" role="img" aria-label="food">🎵</span>
-        <p class="card__text">{{ post.music | truncate(50) }}</p>
+        <span class="card__label" role="img" aria-label="music">🎵</span>
+        <p class="card__text">{{ post.music | truncate(100) }}</p>
       </li>
       <li
         v-if="!!post.extra && ['all', 'extra'].includes(filter)"
@@ -88,7 +88,7 @@
         class="card__item"
       >
         <span class="card__label" role="img" aria-label="extra">⚡</span>
-        <p class="card__text">{{ post.extra | truncate(100) }}</p>
+        <p class="card__text">{{ post.extra | truncate(200) }}</p>
       </li>
     </ul>
   </article>
