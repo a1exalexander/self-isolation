@@ -2,7 +2,7 @@ const path = require('path');
 const PrerenderSpaPlugin = require('prerender-spa-plugin');
 const seo = require('./seo');
 
-const routes = ['/', '/about', '/post'];
+const routes = ['/', '/about', '/post', '/info'];
 if (process.env.NODE_ENV === 'production') {
   seo(routes);
 }

@@ -56,7 +56,7 @@ import { UPDATE_SEARCH } from '../constants';
 export default {
   name: 'Info',
   metaInfo: {
-    title: 'COVID-19 Online',
+    title: 'COVID-19 ONLINE',
     script: [
       {
         src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js',
