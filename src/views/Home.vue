@@ -76,7 +76,7 @@ export default {
   &__list {
     flex: 1 1;
     @include media($screen-tablet) {
-      @include flex(space-between, flex-start);
+      @include flex(flex-start, flex-start);
       flex-wrap: wrap;
     }
   }
@@ -107,6 +107,12 @@ export default {
       margin-left: 12px;
       margin-right: 12px;
       flex: 1 1;
+    }
+    @include media($screen-desktop) {
+      max-width: calc(50% - 24px);
+    }
+    @include media($screen-retina) {
+      max-width: calc(33.3% - 24px);
     }
   }
 }
