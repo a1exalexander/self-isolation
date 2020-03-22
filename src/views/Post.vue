@@ -48,7 +48,7 @@ import { Compact } from 'vue-color';
 import { colors } from '@/utils';
 import Card from '../components/common/Card';
 import { logger, db, Timestamp } from '../services';
-import { dateNow } from '../utils';
+import { dateNow, getValidColor } from '../utils';
 
 const init = {
   color: colors[0],
@@ -87,7 +87,6 @@ export default {
       return (
         input.likes !== 0 ||
         input.dislikes !== 0 ||
-        !colors.includes(input.color) ||
         !input.name ||
         ![
           !!input.movies,
@@ -112,7 +111,11 @@ export default {
       if (this.disabled) return;
       this.loading = true;
       try {
-        const data = { ...this.input, date: Timestamp.fromDate(new Date()) };
+        const data = {
+          ...this.input,
+          color: getValidColor(this.input.color),
+          date: Timestamp.fromDate(new Date())
+        };
         const res = await db.collection('posts').add(data);
         logger.info(res);
         this.clean();

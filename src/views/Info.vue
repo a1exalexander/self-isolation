@@ -1,23 +1,27 @@
 <template>
   <section class="info">
     <h2 class="info__title">COVID-19 Online</h2>
-    <h3 class="info__subtitle">Глобальные данные</h3>
-    <ul class="info__global">
-      <li class="info__global-item info__global-item--warning">
-        <span class="info__label">Всего случаев</span>
-        <span class="info__value">{{ globalInfo.cases | numeralFormat }}</span>
-      </li>
-      <li class="info__global-item info__global-item--danger">
-        <span class="info__label">Смертей</span>
-        <span class="info__value">{{ globalInfo.deaths | numeralFormat }}</span>
-      </li>
-      <li class="info__global-item info__global-item--success">
-        <span class="info__label">Выздоровлений</span>
-        <span class="info__value">{{ globalInfo.recovered | numeralFormat }}</span>
-      </li>
-    </ul>
+    <transition name="fade">
+      <div v-show="!search">
+        <h3 class="info__subtitle">Глобальные данные</h3>
+        <ul class="info__global">
+          <li class="info__global-item info__global-item--warning">
+            <span class="info__label">Всего случаев</span>
+            <span class="info__value">{{ globalInfo.cases | numeralFormat }}</span>
+          </li>
+          <li class="info__global-item info__global-item--danger">
+            <span class="info__label">Смертей</span>
+            <span class="info__value">{{ globalInfo.deaths | numeralFormat }}</span>
+          </li>
+          <li class="info__global-item info__global-item--success">
+            <span class="info__label">Выздоровлений</span>
+            <span class="info__value">{{ globalInfo.recovered | numeralFormat }}</span>
+          </li>
+        </ul>
+      </div>
+    </transition>
     <h3 class="info__subtitle">Данные по странам</h3>
-    <ul class="info__list">
+    <transition-group name="cell" class="info__list" tag="ul">
       <li class="info__item" v-for="item in getCountries" :key="item.country">
         <h4 class="info__country">{{ item.country }}</h4>
         <div class="info__row">
@@ -41,7 +45,7 @@
           </p>
         </div>
       </li>
-    </ul>
+    </transition-group>
   </section>
 </template>
 <script>
@@ -105,17 +109,17 @@ export default {
     width: 100%;
     @include flex(flex-start, stretch, column);
     list-style: none;
+    margin-bottom: 24px;
     @include media($screen-tablet-small) {
       flex-direction: row;
       justify-content: center;
       max-width: 800px;
-      margin: 0 auto;
-      margin-bottom: 24px;
+      margin: 0 auto 24px;
     }
   }
   &__global-item {
     flex: 1 1 100px;
-    padding: 24px;
+    padding: 22px 24px 24px;
     border-radius: 4px;
     @include flex(flex-start, center, column);
     &:not(:last-child) {
@@ -124,7 +128,7 @@ export default {
     @include media($screen-tablet-small) {
       &:not(:last-child) {
         margin-bottom: 0;
-        margin-right: 12px;
+        margin-right: 24px;
       }
     }
     &--warning {
@@ -151,6 +155,7 @@ export default {
     flex-wrap: wrap;
   }
   &__item {
+    @include flex(flex-start, flex-start, column);
     flex: 1 1;
     margin: 0 12px 24px;
     padding: 12px 24px;

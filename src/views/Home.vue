@@ -43,6 +43,16 @@ export default {
     getPosts() {
       const shallowCopy = [...this.posts];
       return shallowCopy
+        .filter(({ likes, dislikes, name, movies, books, todo, food, games, music, extra }) => {
+          return (
+            !(likes < 0) ||
+            !(dislikes < 0) ||
+            [movies, books, todo, food, games, music, extra].every(
+              subItem => !String(subItem).trim()
+            ) ||
+            String(name).trim()
+          );
+        })
         .sort((a, b) =>
           this.sort === 'date' ? b.date.seconds - a.date.seconds : b[this.sort] - a[this.sort]
         )
@@ -56,25 +66,6 @@ export default {
     bus.$on(UPDATE_SORT, value => {
       this.sort = value;
     });
-  },
-  watch: {
-    posts() {
-      this.posts.forEach(
-        ({ color, name, movies, books, todo, food, games, music, extra, likes, dislikes }) => {
-          const needDelete =
-            likes < 0 ||
-            dislikes < 0 ||
-            !name | ![movies, books, todo, food, games, music, extra].every(subItem => !subItem);
-          if (needDelete) {
-            db.collection('posts')
-              .doc(item.id)
-              .delete()
-              .then(() => logger.info(`Post ${item.id} deleted`))
-              .error(() => logger.error(`Post ${item.id} not deleted`));
-          }
-        }
-      );
-    }
   }
 };
 </script>

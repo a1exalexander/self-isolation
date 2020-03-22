@@ -15,4 +15,12 @@ export const colors = [
   '#cbf1f5'
 ];
 
+export const getValidColor = (color) => {
+  return colors
+    .map(item => String(item).toUpperCase())
+    .includes(String(color).toUpperCase())
+    ? color
+    : colors[0];
+}
+
 export default colors;

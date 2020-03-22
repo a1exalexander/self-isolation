@@ -27,31 +27,66 @@
     </header>
     <app-line :height="2" direction="reverse" />
     <ul class="card__list">
-      <li v-if="!!post.movies && ['all', 'movies'].includes(filter)" key='movies' title="Фильмы, сериалы, передачи..." class="card__item">
+      <li
+        v-if="!!post.movies && ['all', 'movies'].includes(filter)"
+        key="movies"
+        title="Фильмы, сериалы, передачи..."
+        class="card__item"
+      >
         <span class="card__label" role="img" aria-label="movies">🎥</span>
         <p class="card__text">{{ post.movies | truncate(50) }}</p>
       </li>
-      <li v-if="!!post.books && ['all', 'books'].includes(filter)" key='books' title="Книги" class="card__item">
+      <li
+        v-if="!!post.books && ['all', 'books'].includes(filter)"
+        key="books"
+        title="Книги"
+        class="card__item"
+      >
         <span class="card__label" role="img" aria-label="books">📖</span>
         <p class="card__text">{{ post.books | truncate(50) }}</p>
       </li>
-      <li v-if="!!post.todo && ['all', 'todo'].includes(filter)" key='todo' title="Чем заняться свободное время" class="card__item">
+      <li
+        v-if="!!post.todo && ['all', 'todo'].includes(filter)"
+        key="todo"
+        title="Чем заняться свободное время"
+        class="card__item"
+      >
         <span class="card__label" role="img" aria-label="time">⏳</span>
         <p class="card__text">{{ post.todo | truncate(100) }}</p>
       </li>
-      <li v-if="!!post.food && ['all', 'food'].includes(filter)" key='food' title="Еда" class="card__item">
+      <li
+        v-if="!!post.food && ['all', 'food'].includes(filter)"
+        key="food"
+        title="Еда"
+        class="card__item"
+      >
         <span class="card__label" role="img" aria-label="food">🍕</span>
         <p class="card__text">{{ post.food | truncate(50) }}</p>
       </li>
-      <li v-if="!!post.games && ['all', 'games'].includes(filter)" key='games' title="Игры" class="card__item">
+      <li
+        v-if="!!post.games && ['all', 'games'].includes(filter)"
+        key="games"
+        title="Игры"
+        class="card__item"
+      >
         <span class="card__label" role="img" aria-label="food">🎮</span>
         <p class="card__text">{{ post.games | truncate(50) }}</p>
       </li>
-      <li v-if="!!post.music && ['all', 'music'].includes(filter)" key='music' title="Музыка" class="card__item">
+      <li
+        v-if="!!post.music && ['all', 'music'].includes(filter)"
+        key="music"
+        title="Музыка"
+        class="card__item"
+      >
         <span class="card__label" role="img" aria-label="food">🎵</span>
         <p class="card__text">{{ post.music | truncate(50) }}</p>
       </li>
-      <li v-if="!!post.extra && ['all', 'extra'].includes(filter)" key='extra' title="Дополниельно" class="card__item">
+      <li
+        v-if="!!post.extra && ['all', 'extra'].includes(filter)"
+        key="extra"
+        title="Дополниельно"
+        class="card__item"
+      >
         <span class="card__label" role="img" aria-label="extra">⚡</span>
         <p class="card__text">{{ post.extra | truncate(100) }}</p>
       </li>
@@ -61,7 +96,7 @@
 
 <script>
 import { IconHeart, IconBrokenHeart } from '../icons';
-import { dateNow, formatDate, colors } from '../../utils';
+import { dateNow, formatDate, colors, getValidColor } from '../../utils';
 import { likeStorage, db, eventBus, logger } from '../../services';
 import { UPDATE_POSTS } from '../../constants';
 
@@ -109,7 +144,7 @@ export default {
   },
   methods: {
     increment(num) {
-      return Number.isNaN(Number(num)) ? 1 : Number(num) + 1
+      return Number.isNaN(Number(num)) ? 1 : Number(num) + 1;
     },
     onLike() {
       const {
@@ -123,7 +158,7 @@ export default {
         .doc(id)
         .update({ likes: this.increment(likes) })
         .then(() => {
-          logger.info('Liked')
+          logger.info('Liked');
           this.like = true;
           likeStorage.saveLike(id);
         });
@@ -140,7 +175,7 @@ export default {
         .doc(id)
         .update({ dislikes: this.increment(dislikes) })
         .then(() => {
-          logger.info('Disliked')
+          logger.info('Disliked');
           this.dislike = true;
           likeStorage.saveDislike(id);
         });
@@ -148,10 +183,10 @@ export default {
   },
   computed: {
     getDate() {
-      return formatDate(this.post?.date?.seconds)
+      return formatDate(this.post?.date?.seconds);
     },
     getColor() {
-      return colors.includes(this.post.color) ? this.post.color : colors[0];
+      return getValidColor(this.post.color);
     }
   }
 };

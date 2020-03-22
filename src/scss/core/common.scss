@@ -1,6 +1,6 @@
 :root {
-  --bg-color: #091E42;
-  --bg-color-secondary: #172B4D;
+  --bg-color: #091e42;
+  --bg-color-secondary: #172b4d;
 }
 
 * {
@@ -30,7 +30,8 @@
   }
 }
 
-html, body {
+html,
+body {
   background-color: var(--bg-color);
 }
 
@@ -43,7 +44,8 @@ ul {
   list-style: none;
 }
 
-button, a {
+button,
+a {
   text-decoration: none;
   outline: none;
   border: none;
@@ -51,6 +53,25 @@ button, a {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.cell-enter,
+.cell-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.cell-enter-active, .cell-leave-active {
+  transition: all 0.5s;
+}
+.cell-move {
+  transition: transform 1s;
 }
