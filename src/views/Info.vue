@@ -7,15 +7,15 @@
         <ul class="info__global">
           <li class="info__global-item info__global-item--warning">
             <span class="info__label">Всего случаев</span>
-            <span class="info__value">{{ globalInfo.cases | numeralFormat }}</span>
+            <span class="info__value">{{ animatedCases | numeralFormat }}</span>
           </li>
           <li class="info__global-item info__global-item--danger">
             <span class="info__label">Смертей</span>
-            <span class="info__value">{{ globalInfo.deaths | numeralFormat }}</span>
+            <span class="info__value">{{ animatedDeaths | numeralFormat }}</span>
           </li>
           <li class="info__global-item info__global-item--success">
             <span class="info__label">Выздоровлений</span>
-            <span class="info__value">{{ globalInfo.recovered | numeralFormat }}</span>
+            <span class="info__value">{{ tweenedRecovered | numeralFormat }}</span>
           </li>
         </ul>
       </div>
@@ -49,18 +49,32 @@
   </section>
 </template>
 <script>
+import { TweenLite } from 'gsap';
 import { covidService, bus } from '../services';
 import { UPDATE_SEARCH } from '../constants';
+
 export default {
   name: 'Info',
   metaInfo: {
-    title: 'COVID-19 Online'
+    title: 'COVID-19 Online',
+    script: [
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js',
+        async: true,
+        defer: true
+      }
+    ]
   },
   data() {
     return {
       countries: [...covidService.getCountriesSnapshot()],
-      globalInfo: { ...covidService.getGlobalSnapshot() },
-      search: ''
+      search: '',
+      tweenedCases: 0,
+      tweenedDeaths: 0,
+      tweenedRecovered: 0,
+      cases: 0,
+      deaths: 0,
+      recovered: 0
     };
   },
   computed: {
@@ -72,13 +86,37 @@ export default {
             .toLowerCase()
             .includes(String(this.search).toLowerCase())
       );
+    },
+    animatedCases() {
+      return this.tweenedCases.toFixed(0);
+    },
+    animatedDeaths() {
+      return this.tweenedDeaths.toFixed(0);
+    },
+    animatedRecovered() {
+      return this.tweenedRecovered.toFixed(0);
+    }
+  },
+  watch: {
+    cases(value) {
+      TweenLite.to(this.$data, 1, { tweenedCases: value });
+    },
+    deaths(value) {
+      TweenLite.to(this.$data, 1, { tweenedDeaths: value });
+    },
+    recovered(value) {
+      TweenLite.to(this.$data, 1, { tweenedRecovered: value });
     }
   },
   async created() {
     bus.$on(UPDATE_SEARCH, value => {
       this.search = value;
     });
-    this.global = { ...(await covidService.getGlobal()) };
+    console.log(covidService.getGlobalSnapshot())
+    const { cases, deaths, recovered } = await covidService.getGlobal();
+    this.cases = cases;
+    this.deaths = deaths;
+    this.recovered = recovered;
     this.countries = [...(await covidService.getAll())];
   }
 };

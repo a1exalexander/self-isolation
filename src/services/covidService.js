@@ -8,7 +8,7 @@ export const covidService = {
   },
   getGlobalSnapshot() {
     return JSON.parse(
-      localStorage.getItem('covid-global') || '{"cases": null, "deaths": null, "recovered": null}'
+      localStorage.getItem('covid-global') || '{"cases": 0, "deaths": 0, "recovered": 0}'
     );
   },
   getCountriesSnapshot() {
