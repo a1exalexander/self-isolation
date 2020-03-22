@@ -1,13 +1,15 @@
 <template>
-  <nav class="navigation">
-    <div class="navigation__box" :style="{ height: `${heightDefault}px` }">
-      <h1 class="navigation__title">
-        <img class="navigation__icon" src="@/assets/svg/isolate.svg" alt="" />Счастливой
-        Самоизоляции!
-      </h1>
-      <navigation-menu class="navigation__desktop-menu" />
+  <header class="header">
+    <div class="header__box" :style="{ height: `${heightDefault}px` }">
+      <router-link :to='{ name: "Home" }' class='header__link-title' >
+        <h1 class="header__title">
+          <img class="header__icon" src="@/assets/svg/isolate.svg" alt="" />Счастливой
+          Самоизоляции!
+        </h1>
+      </router-link>
+      <navigation-menu class="header__desktop-menu" />
       <button
-        class="navigation__burger burger"
+        class="header__burger burger"
         :class="{ _active: menu }"
         @click="$emit('toggle-menu')"
       >
@@ -23,28 +25,28 @@
       @after-leave="afterLeave"
       :css="false"
     >
-      <navigation-menu class="navigation__menu" v-show="menu" />
+      <navigation-menu class="header__menu" v-show="menu" />
     </transition>
-    <app-line class="navigation__line" />
-    <div class="navigation__gears" v-if="$route.name === 'Home'" key="home">
+    <app-line class="header__line" />
+    <div class="header__gears" v-if="$route.name === 'Home'" key="home">
       <app-select
-        class="navigation__select"
+        class="header__select"
         :list="sorts"
         :value="sort"
         @change="onSortChange"
       ></app-select>
       <app-select
-        class="navigation__select"
+        class="header__select"
         :list="filters"
         :value="filter"
         @change="onFilterChange"
       ></app-select>
     </div>
-    <div class="navigation__gears" v-if="$route.name === 'Info'" key="info">
-      <app-search v-model.trim="search" class="navigation__search" />
-      <h2 class="navigation__gears-title">COVID-19 Online</h2>
+    <div class="header__gears" v-if="$route.name === 'Info'" key="info">
+      <app-search v-model.trim="search" class="header__search" />
+      <h2 class="header__gears-title">COVID-19 Online</h2>
     </div>
-  </nav>
+  </header>
 </template>
 
 <script>
@@ -56,7 +58,7 @@ import anime from 'animejs';
 import NavigationMenu from './navigation/NavigationMenu';
 
 export default {
-  name: 'AppNavigation',
+  name: 'AppHeader',
   components: {
     NavigationMenu,
     AppSelect,
@@ -141,7 +143,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$style: navigation;
+$style: header;
 .#{$style} {
   position: fixed;
   top: 0;
@@ -158,12 +160,15 @@ $style: navigation;
       width: 320px;
     }
   }
+  &__link-title {
+    display: inline-block;
+    margin-right: 12px;
+    flex: 1 1;
+  }
   &__title {
     @include text($H400, 600);
     @include flex(flex-start, center);
     font-weight: 700;
-    margin-right: 12px;
-    flex: 1 1;
     @include media($screen-iphone-plus) {
       font-size: $H500;
     }

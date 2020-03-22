@@ -270,6 +270,7 @@ $style: card;
 $style: like-btn;
 .#{$style} {
   @include flex(flex-start, center);
+  cursor: pointer;
   @include media {
     &:hover {
       .#{$style}__icon {

@@ -1,25 +1,25 @@
 <template>
   <div class="navigation-menu">
-    <ul class="navigation-menu__list">
-      <router-link tag="li" exact class="navigation-menu__link" :to="{ name: 'Home' }"
-        ><img class="navigation-menu__link-icon" src="@/assets/svg/chat.svg" alt="" /><span
+    <nav class="navigation-menu__list">
+      <router-link exact class="navigation-menu__link" :to="{ name: 'Home' }"
+        ><img class="navigation-menu__link-icon" src="@/assets/svg/home-heart.svg" alt="" /><span
           class="navigation-menu__link-text"
           >Главная</span
         ></router-link
       >
-      <router-link tag="li" exact class="navigation-menu__link" :to="{ name: 'About' }"
+      <router-link exact class="navigation-menu__link" :to="{ name: 'About' }"
         ><img class="navigation-menu__link-icon" src="@/assets/svg/book.svg" alt="" /><span
           class="navigation-menu__link-text"
           >Описание</span
         ></router-link
       >
-      <router-link tag="li" exact class="navigation-menu__link" :to="{ name: 'Info' }"
-        ><img class="navigation-menu__link-icon" src="@/assets/svg/virus.svg" alt="" /><span
+      <router-link exact class="navigation-menu__link" :to="{ name: 'Info' }"
+        ><img class="navigation-menu__link-icon" src="@/assets/svg/virus2.svg" alt="" /><span
           class="navigation-menu__link-text"
           >COVID-19</span
         ></router-link
       >
-    </ul>
+    </nav>
     <div class="navigation-menu__button-wrapper">
       <app-button @click='() => $router.push({ name: "Post" })'>Предложить занятие</app-button>
     </div>
@@ -50,7 +50,7 @@ export default {
       @include flex;
       padding: 0;
       margin-bottom: 0;
-      margin-right: 32px;
+      margin-right: 24px;
     }
   }
   &__link {
@@ -66,9 +66,9 @@ export default {
       }
     }
     @include media($screen-fullhd) {
-      padding: 10px 18px;
+      padding: 8px 12px;
       &:not(:last-child) {
-        margin-right: 18px;
+        margin-right: 12px;
       }
     }
     &.router-link-active {
@@ -79,7 +79,7 @@ export default {
     }
   }
   &__link-icon {
-    height: 26px;
+    height: 28px;
     margin-right: 8px;
   }
   &__link-text {

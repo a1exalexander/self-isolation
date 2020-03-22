@@ -1,6 +1,6 @@
 <template>
   <main id="app" class="app" :style="{ paddingTop: getPadding }">
-    <app-navigation
+    <app-header
       :height-default="heightDefault"
       :height-active="heightActive"
       :menu="menu"
@@ -17,7 +17,7 @@
 
 <script>
 import BackTopButton from '@/components/common/BackTopButton';
-import AppNavigation from '@/components/AppNavigation';
+import AppHeader from '@/components/AppHeader';
 import AppFooter from '@/components/AppFooter';
 import { seo } from './data';
 
@@ -46,7 +46,7 @@ export default {
     ]
   },
   components: {
-    AppNavigation,
+    AppHeader,
     AppFooter,
     BackTopButton
   },
