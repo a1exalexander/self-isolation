@@ -1,10 +1,13 @@
 <template>
   <header class="header">
     <div class="header__box" :style="{ height: `${heightDefault}px` }">
-      <router-link :to='{ name: "Home" }' class='header__link-title' >
+      <router-link :to="{ name: 'Home' }" class="header__link-title">
         <h1 class="header__title">
-          <img class="header__icon" src="@/assets/svg/isolate.svg" alt="" />Счастливой
-          Самоизоляции!
+          <p class="hidden-text">
+            Чем заняться на карантине? Поделись со всеми интересным и полезным! Например, посоветуй
+            хороший фильм 🎥, книгу 📖, видеоигру 🎮 или блюдо 🍕, которое можно приготовить дома.
+          </p>
+          <img class="header__icon" src="@/assets/svg/isolate.svg" alt="" />Счастливой Самоизоляции!
         </h1>
       </router-link>
       <navigation-menu class="header__desktop-menu" />

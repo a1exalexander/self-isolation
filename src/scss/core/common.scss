@@ -78,3 +78,10 @@ code {
 .flip-leave-active {
   position: absolute;
 }
+.hidden-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}

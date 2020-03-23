@@ -26,9 +26,9 @@ export default {
   metaInfo: {
     titleTemplate: `%s | ${seo.title}`,
     meta: [
-      { name: 'title', content: seo.description },
-      { name: 'description', content: seo.description },
-      { vmid: 'description', name: 'description', content: seo.description },
+      { name: 'title', content: seo.title },
+      { name: 'description', content: seo.keywords },
+      { name: 'keywords', content: seo.description },
       { name: 'og:title', content: seo.heading },
       { name: 'og:description', content: seo.description },
       { name: 'og:url', content: seo.website },
