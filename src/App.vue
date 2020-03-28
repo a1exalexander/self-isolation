@@ -7,7 +7,7 @@
       @toggle-menu="toggleMenu"
       @hide-menu="hideMenu"
     />
-    <transition name='fade' appear mode="out-in">
+    <transition name="fade" appear mode="out-in">
       <router-view class="app__view" />
     </transition>
     <app-footer />
@@ -29,20 +29,20 @@ export default {
       { name: 'title', content: seo.title },
       { name: 'description', content: seo.keywords },
       { name: 'keywords', content: seo.description },
-      { name: 'og:title', content: seo.heading },
+      { name: 'og:title', content: seo.titleRu },
       { name: 'og:description', content: seo.description },
       { name: 'og:url', content: seo.website },
-      { name: 'og:site', content: seo.title},
+      { name: 'og:site', content: seo.title },
       { name: 'og:site_name', content: seo.title },
       { name: 'og:type', content: 'website' },
       { name: 'og:image', content: seo.image },
       { name: 'twitter:card', content: seo.twitter.card },
-      { name: 'twitter:title', content: `${seo.title} - ${seo.heading}` },
+      { name: 'twitter:title', content: seo.titleRu },
       { name: 'twitter:description', content: seo.description },
       { name: 'twitter:creator', content: seo.twitter.username },
       { name: 'twitter:site', content: seo.twitter.username },
       { name: 'twitter:image', content: seo.twitter.image },
-      { name: 'twitter:image:src', content: seo.twitter.image },
+      { name: 'twitter:image:src', content: seo.twitter.image }
     ]
   },
   components: {

@@ -1,6 +1,6 @@
 <template>
   <section class="info">
-    <h2 class="info__title">COVID-19 Online</h2>
+    <h2 class="info__title">COVID-19 ONLINE</h2>
     <transition name="fade">
       <div v-show="!search">
         <h3 class="info__subtitle">Глобальные данные</h3>
