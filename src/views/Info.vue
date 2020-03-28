@@ -77,7 +77,7 @@ export default {
               .toLowerCase()
               .includes(String(this.search).toLowerCase())
         )
-        .sort((a, b) => Number(a.cases) - Number(b.cases));
+        .sort((a, b) => Number(b.cases) - Number(a.cases));
     },
     animatedCases() {
       return this.cases.toFixed(0);
