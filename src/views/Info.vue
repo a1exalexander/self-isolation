@@ -69,13 +69,15 @@ export default {
   },
   computed: {
     getCountries() {
-      return this.countries.filter(
-        ({ country }) =>
-          !this.search ||
-          String(country)
-            .toLowerCase()
-            .includes(String(this.search).toLowerCase())
-      );
+      return this.countries
+        .filter(
+          ({ country }) =>
+            !this.search ||
+            String(country)
+              .toLowerCase()
+              .includes(String(this.search).toLowerCase())
+        )
+        .sort((a, b) => Number(a.cases) - Number(b.cases));
     },
     animatedCases() {
       return this.cases.toFixed(0);
